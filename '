@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 09:40:31 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/15 15:40:16 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/15 15:14:39 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,59 @@
 #include "test_runner.h"
 #include "libftprintf.h"
 #include <fcntl.h>
-int ret = 1;
+
 #define MUTE freopen("../other/ret.txt", "w", stdout)
 #define UNMUTE freopen ("/dev/tty", "a", stdout)
 #define valp(x) printf(" --> %d\n", x)
 #define valft(y) printf(" --> %d\n\n", y)
+//#define ret(x, y) do {printf(x, y) == ft_printf(x, y); freopen("/dev/null", "w", stdout); } while (0)
 #define eval(a,b) do {printf("(%s, %s)\n", #a, #b); \
 	valp(printf("p  |"a"|", b)); valft(ft_printf("ft |"a"|", b)); } while (0)
 
 #define test(a, b) do {FILE *f2; char p1[80]; char p2[80]; size_t len; \
 	MUTE; if ((len = ft_printf(a"\n", b)) != printf(a"\n", b)) ret = 0; UNMUTE; \
-	f2 = fopen("../other/ret.txt", "r"); fgets(p1, 80, f2); fgets(p2, 80, f2);  \
-	if (strncmp(p1, p2, len)) ret = 0; fclose(f2); } while (0)
+	f2 = fopen("../other/ret.txt", "r"); fgets(p1, 80, f2); fgets(p2, 80, f2); \
+	if (strncmp(p1, p2, len)) ret = 0;\ fclose(f2); ret = 1; } while (0)
 
-#define check(a, b) test(a, b); if (!ret) eval(a, b); ret = 1; 
+#define check(a, b) if (!ret) eval(a, b) 
 
-
+int ret = 0;
 
 /* test_c *********************************/
 
+int printest()
+{
+//	check();
+	
+//	FILE *f2;
+//	char p1[80];
+//	char p2[80];
+//	size_t len;
+//
+//	MUTE;
+//	if ((len = printf("Bonjour\n")) != printf("Bonjour\n"))
+//		return (0);
+//	UNMUTE;
+//	f2 = fopen("../other/ret.txt", "r");
+//	fgets(p1, 80, f2);
+//	fgets(p2, 80, f2);
+//	if (strncmp(p1, p2, len))
+//	   return (0);	
+//	fclose(f2);	
+	return (1);
+
+}
+
 int test_c(void)
 {
-	check("%#20.15x", 42);
-	check("%p", NULL);
-	check("%d", 5);
-	check("%#08x", 42);
-	check("%#8x", 42);
+	 
+check("%d", 5);
+check("%#20.15x", 42);
+check("%p", NULL);
+check("%#08x", 42);
+check("%#8x", 42);
+ 
+
 
 
 	//printf("ft = %d\n", ft_printf("ft |@moulitest: %#.x %#.0x|\n", 0, 0));
@@ -308,6 +335,7 @@ int main(void)
 	//	_RUN(test_struct);
 	//	_RUN(test_o);
 	_RUN(test_c);
+	_RUN(printest);
 
 	return (0);
 }
