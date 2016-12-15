@@ -28,11 +28,11 @@ $(NAME):
 	@echo "Compiling libftprintf.a... OK"
 
 exe:
-	@gcc -o $(EXE) $(FLAGS) -L. -lftprintf other/main.c -I $(HEADER)
+	@gcc -o $(EXE) $(FLAGS) -L. -lftprintf ../other/main.c -I $(HEADER)
 	@echo "Compiling ft_printf... OK"
 
 test: 
-	@gcc -o $(EXE) $(FLAGS) -L. -lftprintf other/main_ftprintf.c -I $(HEADER)
+	@gcc -o $(EXE) $(FLAGS) -L. -lftprintf ../other/main_ftprintf.c -I $(HEADER)
 	@echo "Compiling main_test... OK"
 
 clean:
