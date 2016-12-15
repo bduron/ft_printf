@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/14 18:11:09 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/15 18:23:45 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ void put_d(t_flags *f, char *s, int len)
 {
 	int n;
 
-	n = (f->precision > len - f->s_bool) ? f->precision : len - f->s_bool;
+	n = (f->precision > len - f->s_bool - f->h_bool) ? f->precision : len - f->s_bool;
 	(f->sign && f->flags['0']) ? ft_putchar(f->sign) : 0;
 //	if (f->width > n && !f->flags['-'])
 //		(f->flags['0']) ? pad(f->width - n - f->s_bool, '0') : pad(f->width - n - f->s_bool, ' ');
