@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/07 11:11:00 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/06 14:28:54 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/16 09:10:46 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define WHT   "\x1B[37m"
 #define RESET "\x1B[0m"
 #define _RUN(function_name)\
-	printf( YEL "[%s] \n" RESET "\n", #function_name);\
+	printf( YEL "[%s] \n" RESET /*"\n"*/, #function_name);\
 	function_name();\
 	printf("\n");
 
