@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 09:40:31 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/16 15:09:18 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/16 17:59:47 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,12 @@ int ret = 1;
 
 int current(void)
 {
+	unsigned char a = 68;
+
+	check("%c", a);
 	check("%5u", 4294967295);
 	printf("adress %u\n", "1");
 	printf("nb %u\n", 1);
-
-	return (0);
-}
-
-/* test_c *********************************/
-
-int test_c(void)
-{
-	check("%#20.15x", 42);
-	check("%p", NULL);
-	check("%d", 5);
-	check("%#08x", 42);
-	check("%#8x", 42);
-
 //	unsigned char c;
 //	c = 0xe1;
 //	write(1, &c, 1);
@@ -77,11 +66,239 @@ int test_c(void)
 	return (0);
 }
 
+/* test_c *********************************/
+
+int test_c(void)
+{
+	check("%c", 'a');
+	check("%c", 'A');
+	check("%c", -'a');
+	check("%c", 127);
+	check("%c", -128);
+	check("%c", 0);
+	check("%3c", 'a');
+	check("%3c", 'A');
+	check("%3c", -'a');
+	check("%3c", 127);
+	check("%3c", -128);
+	check("%3c", 0);
+	check("%6c", 'a');
+	check("%-3c", 'a');
+	check("%-3c", 'A');
+	check("%-3c", -'a');
+	check("%-3c", 127);
+	check("%-3c", -128);
+	check("%-3c", 0);
+	check("%c", 0);
+	check("%c", 'a');
+	check("%c", '0');
+	check("%.0c", '0');
+	check("%.3c", '0');
+	check("%.7c", '0');
+	check("%0.3c", '0');
+	check("%1.3c", '0');
+	check("%3.3c", '0');
+	check("%5.3c", '0');
+	check("%00.3c", '0');
+	check("%01.3c", '0');
+	check("%03.3c", '0');
+	check("%03.3c", 256);
+	check("%03.3c", 310);
+	check("%03.3c", -'a');
+	check("%6hc", 'a');
+	check("%hc", 'a');
+	check("%hc", 'A');
+	check("%hc", -'a');
+	check("%hc", 127);
+	check("%hc", -128);
+	check("%hc", 0);
+	check("%3hc", 'a');
+	check("%3hc", 'A');
+	check("%3hc", -'a');
+	check("%3hc", 127);
+	check("%3hc", -128);
+	check("%3hc", 0);
+	check("%-3hc", 'a');
+	check("%-3hc", 'A');
+	check("%-3hc", -'a');
+	check("%-3hc", 127);
+	check("%-3hc", -128);
+	check("%-3hc", 0);
+	check("%hc", 0);
+	check("%hc", 'a');
+	check("%hc", '0');
+	check("%.0hc", '0');
+	check("%.3hc", '0');
+	check("%.7hc", '0');
+	check("%0.3hc", '0');
+	check("%1.3hc", '0');
+	check("%3.3hc", '0');
+	check("%5.3hc", '0');
+	check("%00.3hc", '0');
+	check("%01.3hc", '0');
+	check("%03.3hc", '0');
+	check("%05.3hc", '0');
+	check("%6hhc", 'a');
+	check("%hhc", 'a');
+	check("%hhc", 'A');
+	check("%hhc", -'a');
+	check("%hhc", 127);
+	check("%hhc", -128);
+	check("%hhc", 0);
+	check("%3hhc", 'a');
+	check("%3hhc", 'A');
+	check("%3hhc", -'a');
+	check("%3hhc", 127);
+	check("%3hhc", -128);
+	check("%3hhc", 0);
+	check("%-3hhc", 'a');
+	check("%-3hhc", 'A');
+	check("%-3hhc", -'a');
+	check("%-3hhc", 127);
+	check("%-3hhc", -128);
+	check("%-3hhc", 0);
+	check("%hhc", 0);
+	check("%hhc", 'a');
+	check("%hhc", '0');
+	check("%.0hhc", '0');
+	check("%.3hhc", '0');
+	check("%.7hhc", '0');
+	check("%0.3hhc", '0');
+	check("%1.3hhc", '0');
+	check("%3.3hhc", '0');
+	check("%5.3hhc", '0');
+	check("%00.3hhc", '0');
+	check("%01.3hhc", '0');
+	check("%03.3hhc", '0');
+	check("%05.3hhc", '0');
+	check("%6lc", 'a');
+	check("%lc", 'a');
+	check("%lc", 'A');
+	check("%lc", 127);
+	check("%lc", 0);
+	check("%3lc", 'a');
+	check("%3lc", 'A');
+	check("%3lc", 127);
+	check("%3lc", 0);
+	check("%-3lc", 'a');
+	check("%-3lc", 'A');
+	check("%-3lc", 127);
+	check("%-3lc", 0);
+	check("%lc", 0);
+	check("%lc", 'a');
+	check("%lc", '0');
+	check("%.0lc", '0');
+	check("%.3lc", '0');
+	check("%.7lc", '0');
+	check("%0.3lc", '0');
+	check("%1.3lc", '0');
+	check("%3.3lc", '0');
+	check("%5.3lc", '0');
+	check("%00.3lc", '0');
+	check("%01.3lc", '0');
+	check("%03.3lc", '0');
+	check("%05.3lc", '0');
+	check("%6llc", 'a');
+	check("%llc", 'a');
+	check("%llc", 'A');
+	check("%llc", 127);
+	check("%llc", 0);
+	check("%3llc", 'a');
+	check("%3llc", 'A');
+	check("%3llc", 127);
+	check("%3llc", 0);
+	check("%-3llc", 'a');
+	check("%-3llc", 'A');
+	check("%-3llc", 127);
+	check("%-3llc", 0);
+	check("%llc", 0);
+	check("%llc", 'a');
+	check("%llc", '0');
+	check("%.0llc", '0');
+	check("%.3llc", '0');
+	check("%.7llc", '0');
+	check("%0.3llc", '0');
+	check("%1.3llc", '0');
+	check("%3.3llc", '0');
+	check("%5.3llc", '0');
+	check("%00.3llc", '0');
+	check("%01.3llc", '0');
+	check("%03.3llc", '0');
+	check("%05.3llc", '0');
+	check("%6zc", 'a');
+	check("%zc", 'a');
+	check("%zc", 'A');
+	check("%zc", -'a');
+	check("%zc", 127);
+	check("%zc", -128);
+	check("%zc", 0);
+	check("%3zc", 'a');
+	check("%3zc", 'A');
+	check("%3zc", -'a');
+	check("%3zc", 127);
+	check("%3zc", -128);
+	check("%3zc", 0);
+	check("%-3zc", 'a');
+	check("%-3zc", 'A');
+	check("%-3zc", -'a');
+	check("%-3zc", 127);
+	check("%-3zc", -128);
+	check("%-3zc", 0);
+	check("%zc", 0);
+	check("%zc", 'a');
+	check("%zc", '0');
+	check("%.0zc", '0');
+	check("%.3zc", '0');
+	check("%.7zc", '0');
+	check("%0.3zc", '0');
+	check("%1.3zc", '0');
+	check("%3.3zc", '0');
+	check("%5.3zc", '0');
+	check("%00.3zc", '0');
+	check("%01.3zc", '0');
+	check("%03.3zc", '0');
+	check("%05.3zc", '0');
+	check("%6jc", 'a');
+	check("%jc", 'a');
+	check("%jc", 'A');
+	check("%jc", -'a');
+	check("%jc", 127);
+	check("%jc", -128);
+	check("%jc", 0);
+	check("%3jc", 'a');
+	check("%3jc", 'A');
+	check("%3jc", -'a');
+	check("%3jc", 127);
+	check("%3jc", -128);
+	check("%3jc", 0);
+	check("%-3jc", 'a');
+	check("%-3jc", 'A');
+	check("%-3jc", -'a');
+	check("%-3jc", 127);
+	check("%-3jc", -128);
+	check("%-3jc", 0);
+	check("%jc", 0);
+	check("%jc", 'a');
+	check("%jc", '0');
+	check("%.0jc", '0');
+	check("%.3jc", '0');
+	check("%.7jc", '0');
+	check("%0.3jc", '0');
+	check("%1.3jc", '0');
+	check("%3.3jc", '0');
+	check("%5.3jc", '0');
+	check("%00.3jc", '0');
+	check("%01.3jc", '0');
+	check("%03.3jc", '0');
+	check("%05.3jc", '0');
+
+	return (0);
+}
 
 
-/* test_x *********************************/
+/* test_xX *********************************/
 
-int test_x(void)
+int test_xX(void)
 {
 	check("%x", 512);
 	check("%x", 18);
@@ -652,10 +869,162 @@ int test_x(void)
 }	
 
 
+/* test_O *********************************/
+
+int test_O(void)
+{
+	check("%O", -512);
+	check("%O", -18);
+	check("%#O", 0);
+	check("%#O", 1);
+	check("%#O", -1);
+	check("%#O", 455);
+	check("%#O", -455);
+	check("%#-+03O", 84);
+	check("%#-+03O", 1);
+	check("%#-+03O", 0);
+	check("%O", -4294967292);
+	check("%O", -4294967292);
+	check("%#O", 4294967292);
+	check("%#O", 4294967292);
+	check("%#O", -4294967292);
+	check("%#O", 4294967292);
+	check("%#O", -4294967292);
+	check("%#-+03O", 4294967295);
+	check("%#-+03O", 1);
+	check("%#-+03O", 0);
+	check("%hO", -512);
+	check("%hO", -18);
+	check("%#hO", 0);
+	check("%#hO", 1);
+	check("%#hO", -1);
+	check("%#hO", 455);
+	check("%#hO", -455);
+	check("%#-+03hO", 84);
+	check("%#-+03hO", 1);
+	check("%#-+03hO", 0);
+	check("%hO", -4294967292);
+	check("%hO", -4294967292);
+	check("%#hO", 4294967292);
+	check("%#hO", 4294967292);
+	check("%#hO", -4294967292);
+	check("%#hO", 4294967292);
+	check("%#hO", -4294967292);
+	check("%#-+03hO", 4294967295);
+	check("%#-+03hO", 1);
+	check("%#-+03hO", 0);
+	check("%hhO", -512);
+	check("%hhO", -18);
+	check("%#hhO", 0);
+	check("%#hhO", 1);
+	check("%#hhO", -1);
+	check("%#hhO", 455);
+	check("%#hhO", -455);
+	check("%#-+03hhO", 84);
+	check("%#-+03hhO", 1);
+	check("%#-+03hhO", 0);
+	check("%hhO", -4294967292);
+	check("%hhO", -4294967292);
+	check("%#hhO", 4294967292);
+	check("%#hhO", 4294967292);
+	check("%#hhO", -4294967292);
+	check("%#hhO", 4294967292);
+	check("%#hhO", -4294967292);
+	check("%#-+03hhO", 4294967295);
+	check("%#-+03hhO", 1);
+	check("%#-+03hhO", 0);
+	check("%lO", -512);
+	check("%lO", -18);
+	check("%#lO", 0);
+	check("%#lO", 1);
+	check("%#lO", -1);
+	check("%#lO", 455);
+	check("%#lO", -455);
+	check("%#-+03lO", 84);
+	check("%#-+03lO", 1);
+	check("%#-+03lO", 0);
+	check("%lO", -4294967292);
+	check("%lO", -4294967292);
+	check("%#lO", 4294967292);
+	check("%#lO", 4294967292);
+	check("%#lO", -4294967292);
+	check("%#lO", 4294967292);
+	check("%#lO", -4294967292);
+	check("%#-+03lO", 4294967295);
+	check("%#-+03lO", 1);
+	check("%#-+03lO", 0);
+	check("%llO", -512);
+	check("%llO", -18);
+	check("%#llO", 0);
+	check("%#llO", 1);
+	check("%#llO", -1);
+	check("%#llO", 455);
+	check("%#llO", -455);
+	check("%#-+03llO", 84);
+	check("%#-+03llO", 1);
+	check("%#-+03llO", 0);
+	check("%llO", -4294967292);
+	check("%llO", -4294967292);
+	check("%#llO", 4294967292);
+	check("%#llO", 4294967292);
+	check("%#llO", -4294967292);
+	check("%#llO", 4294967292);
+	check("%#llO", -4294967292);
+	check("%#-+03llO", 4294967295);
+	check("%#-+03llO", 1);
+	check("%#-+03llO", 0);
+	check("%zO", -512);
+	check("%zO", -18);
+	check("%#zO", 0);
+	check("%#zO", 1);
+	check("%#zO", -1);
+	check("%#zO", 455);
+	check("%#zO", -455);
+	check("%#-+03zO", 84);
+	check("%#-+03zO", 1);
+	check("%#-+03zO", 0);
+	check("%zO", -4294967292);
+	check("%zO", -4294967292);
+	check("%#zO", 4294967292);
+	check("%#zO", 4294967292);
+	check("%#zO", -4294967292);
+	check("%#zO", 4294967292);
+	check("%#zO", -4294967292);
+	check("%#-+03zO", 4294967295);
+	check("%#-+03zO", 1);
+	check("%#-+03zO", 0);
+	check("%jO", -512);
+	check("%jO", -18);
+	check("%#jO", 0);
+	check("%#jO", 1);
+	check("%#jO", -1);
+	check("%#jO", 455);
+	check("%#jO", -455);
+	check("%#-+03jO", 84);
+	check("%#-+03jO", 1);
+	check("%#-+03jO", 0);
+	check("%jO", -4294967292);
+	check("%jO", -4294967292);
+	check("%#jO", 4294967292);
+	check("%#jO", 4294967292);
+	check("%#jO", -4294967292);
+	check("%#jO", 4294967292);
+	check("%#jO", -4294967292);
+	check("%#-+03jO", 4294967295);
+	check("%#-+03jO", 1);
+	check("%#-+03jO", 0);
+
+
+	return (0);
+}	
+
+
 /* test_o *********************************/
 
 int test_o(void)
 {
+	check("@moulitest: %#.o", 0);
+	check("@moulitest: %#.0o", 0);
 	check("%o", -512);
 	check("%o", -18);
 	check("%#o", 0);
@@ -730,9 +1099,9 @@ int test_o(void)
 	return (0);
 }	
 
-/*  test_d  *********************************/
+/*  test_di  *********************************/
 
-int test_d(void)
+int test_di(void)
 {
 	check("% 03d", 1);
 	check("% 03hd", 1);
@@ -1463,13 +1832,44 @@ int test_d(void)
 	check("%zd", 2387);
 	check("%zd", 5);
 
+	check("%ji", 5);
+	check("%li", -18);
+	check("%li", -2147483648);
+	check("%li", -2387);
+	check("%li", -5);
+	check("%li", 1);
+	check("%li", 18);
+	check("%li", 2147483647);
+	check("%li", 2387);
+	check("%li", 5);
+	check("%lli", -18);
+	check("%lli", -2147483648);
+	check("%lli", -2387);
+	check("%lli", -5);
+	check("%lli", 1);
+	check("%lli", 18);
+	check("%lli", 2147483647);
+	check("%lli", 2387);
+	check("%lli", 5);
+	check("%zi", -18);
+	check("%zi", -2147483648);
+	check("%zi", -2387);
+	check("%zi", -5);
+	check("%zi", 1);
+	check("%zi", 18);
+	check("%zi", 2147483647);
+	check("%zi", 2387);
+	check("%zi", 5);
+
+
 	return (0);
 }
 
-/*  test_u  *********************************/
+/*  test_uU  *********************************/
 
-int test_u(void)
+int test_uU(void)
 {
+	check("%lu", "-42");
 	check("%u", 0);                         
 	check("%u", 1);                         
 	check("%u", -1);                        
@@ -3695,13 +4095,14 @@ int main(void)
 
 	_BEGIN_TEST;
 	_RUN(current);
-	_RUN(test_d);
-	_RUN(test_o);
-	_RUN(test_c);
-	_RUN(test_x);
-	_RUN(test_u);
-	_RUN(test_D);
-	_RUN(test_p);
+  	_RUN(test_di);
+    _RUN(test_o);
+  	_RUN(test_O);
+//  	_RUN(test_c);
+  	_RUN(test_xX);
+    _RUN(test_uU);
+  	_RUN(test_D);
+  	_RUN(test_p);
 
 	return (0);
 }
