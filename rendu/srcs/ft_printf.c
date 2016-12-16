@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/16 09:14:45 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/16 11:24:31 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,16 @@ void launch_conv(t_flags *f)
 		f->mod['l'] = 1;
 		conv_d(f);
 	}
+	if (f->id == 'u' || f->id == 'U')
+	{	
+		f->mod['l'] = f->id == 'U' ? 1 : f->mod['l'] ;
+		f->id = 'd';
+		f->flags['#'] = 0;
+		f->flags['+'] = 0;
+		f->flags[' '] = 0;
+		f->flags['u'] = 1;
+		conv_d(f);
+	}
 	f->id == '%' ? conv_d(f) : 0;
 }
 
@@ -259,12 +269,8 @@ void conv_d(t_flags *f)
 	long long nb;
 	unsigned long m;
 
-	nb = (f->id == 'd' || f->id == 'i') ? get_arg(f) : get_arg_u(f);
-	//if (nb == 0 && f->precision == 0)
-	//{
-	//	f->plen += max(f->width, f->precision + f->s_bool, 0);
-	//	//return;
-	//}
+	nb = ((f->id == 'd' || f->id == 'i') && !f->flags['u']) ?
+	   	get_arg(f) : get_arg_u(f);
 	if (nb < 0 && f->id != 'o' && !is_x(f))
 		f->sign = '-';
 	else if (f->flags['+'] && f->id != 'o' && !is_x(f))
