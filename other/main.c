@@ -41,20 +41,13 @@ int current(void)
 {
 
 		int bin = 0b1100001110001000;
-		int enc = 0b111000001000000010000000;
-		int tmp = bin;	
-		char s[128] = {0};	
-		char *p = &s[127];	
 			
-		*--p = (tmp & 0x1) ? '1' : '0' ;
-		while (tmp >>= 1)
-			*--p = (tmp & 0x1) ? '1' : '0' ;
-		printf("%s\n", p);		
+		ft_printf("%d = |%-#40.35b|", bin, bin);		
 
-		ft_printf("%b\n", 15);
-		ft_printf("|%-#20.15b|\n", 15);
-	
-		printf("wchar_t size = %d", sizeof(wchar_t));
+	//	ft_printf("\n%b\n", 15);
+	//	ft_printf("|%-#20.15b|\n", 15);
+	//
+	//	printf("wchar_t size = %d", sizeof(wchar_t));
 	//	check("%C", 56);
 	//	check("%5u", 4294967295);
 	//	printf("adress %u\n", "1");
