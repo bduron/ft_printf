@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 09:40:31 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/15 18:17:26 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/16 11:27:30 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,17 @@ int ret = 1;
 #define check(a, b) test(a, b); if (!ret) eval(a, b); ret = 1; 
 //#define check(a, b) test(a, b); if (!ret) eval(a, b);
 
+
+/* Current test *********************************/
+
+int current(void)
+{
+	check("%5u", 4294967295);
+	printf("adress %u\n", "1");
+	printf("nb %u\n", 1);
+
+	return (0);
+}
 
 /* test_c *********************************/
 
@@ -720,7 +731,7 @@ int test_o(void)
 	return (0);
 }	
 
-/* ft_printf *********************************/
+/*  test_d  *********************************/
 
 int test_d(void)
 {
@@ -1456,16 +1467,67 @@ int test_d(void)
 	return (0);
 }
 
+/*  test_u  *********************************/
+
+int test_u(void)
+{
+	check("%u", 0);                         
+	check("%u", 1);                         
+	check("%u", -1);                        
+	check("%u", 4294967295);                
+	check("%u", 4294967296);                
+	check("%5u", 4294967295);               
+	check("%15u", 4294967295);              
+	check("%-15u", 4294967295);             
+	check("%015u", 4294967295);             
+	check("% u", 4294967295);               
+	check("%+u", 4294967295);               
+	check("%lu", 4294967295);               
+	check("%lu", 4294967296);               
+	check("%lu", -42);                      
+	check("%llu", 4999999999);              
+	check("%ju", 4999999999);               
+	check("%ju", 4294967296);               
+	check("%U", 4294967295);                
+	check("%hU", 4294967296);               
+	check("%U", 4294967296);                
+	check("%u", "0");                         
+	check("%u", "1");                         
+	check("%u", "-1");                        
+	check("%u", "4294967295");                
+	check("%u", "4294967296");                
+	check("%5u", "4294967295");               
+	check("%15u", "4294967295");              
+	check("%-15u", "4294967295");             
+	check("%015u", "4294967295");             
+	check("% u", "4294967295");               
+	check("%+u", "4294967295");               
+	check("%lu", "4294967295");               
+	check("%lu", "4294967296");               
+	check("%lu", "-42");                      
+	check("%llu", "4999999999");              
+	check("%ju", "4999999999");               
+	check("%ju", "4294967296");               
+	check("%U", "4294967295");                
+	check("%hU", "4294967296");               
+	check("%U", "4294967296");                
+
+
+	return (0);
+}
+
 /* TEST_RUNNER *********************************/
 
 int main(void)
 {
 
 	_BEGIN_TEST;
+	_RUN(current);
 	_RUN(test_d);
 	_RUN(test_o);
 	_RUN(test_c);
 	_RUN(test_x);
+	_RUN(test_u);
 
 	return (0);
 }
