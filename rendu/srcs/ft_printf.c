@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/16 22:37:17 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/17 00:42:09 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,6 +185,12 @@ void launch_conv(t_flags *f)
 		f->mod['l'] = 1;
 		conv_d(f);
 	}
+	if (f->id == 'b')
+	{	
+		f->id = 'x';
+		f->flags['b'] = 1;
+		conv_d(f);
+	}
 	if (f->id == 'D')
 	{	
 		f->id = 'd';
@@ -253,11 +259,21 @@ long long  get_arg_u(t_flags *f)
 	return (va_arg(f->ap, unsigned int));
   }
 
+char *itobin(t_flags *f, unsigned long long n, char *p)
+{
+	*--p = (n & 0x1) ? '1' : '0';
+	while (n >>= 1)
+		*--p = (n & 0x1) ? '1' : '0';
+	return (p);
+}
+
 char *itob(t_flags *f, unsigned long long n)
 {
 	char *p;
 
 	p = &f->str[255];
+	if (f->flags['b'])
+		return (itobin(f, n, p));
 	if (f->id == 'o')
 	{
 		*--p = (n & 0x7) + '0';
@@ -274,10 +290,10 @@ char *itob(t_flags *f, unsigned long long n)
 			*--p = (f->id == 'x') ? HEX_L[n & 0xf] : HEX_U[n & 0xf];
 		return (p);
 	}
+	*--p = n % 10 + '0';
+	while (n /= 10)
 		*--p = n % 10 + '0';
-		while (n /= 10)
-			*--p = n % 10 + '0';
-		return (p);
+	return (p);
 }
 
 void conv_d(t_flags *f)
@@ -319,7 +335,9 @@ void put_d(t_flags *f, char *s, int len)
 	if (f->flags['#'] && is_x(f) && ((*s != '0' && *s) || f->flags['p']))
 	{
 		ft_putchar('0');
-		(f->id == 'x') ? ft_putchar('x') : ft_putchar('X');
+		(f->id == 'x' && !f->flags['b']) ? ft_putchar('x') : 0;
+		(f->id == 'X' && !f->flags['b']) ? ft_putchar('X') : 0;
+		(f->id == 'x' && f->flags['b']) ? ft_putchar('b') : 0;
 	}
 	if (f->width > n && !f->flags['-'] && f->flags['0'])
 		pad(f->width - n - f->s_bool - f->h_bool, '0');
