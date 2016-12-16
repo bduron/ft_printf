@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/16 11:24:31 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/16 16:42:16 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,12 @@ void launch_conv(t_flags *f)
 {
 	(f->id == 'd' || f->id == 'i' || f->id == 'o' || is_x(f)) ? conv_d(f) : 0;
 	(f->id == 'c' || f->id == 'C') ? put_c(f) : 0 ;
+	if (f->id == 'D')
+	{	
+		f->id = 'd';
+		f->mod['l'] = 1;
+		conv_d(f);
+	}
 	if (f->id == 'p')
 	{	
 		f->id = 'x';
@@ -284,7 +290,7 @@ void conv_d(t_flags *f)
 	s = (is_x(f) || f->id == 'o') ? itob(f, nb) : itob(f, m);
 	s = (nb == 0 && f->precision == 0) ? "" : s;
 	f->h_bool = (f->flags['#'] && *s != '0' && *s && is_x(f)) ? 2 : 0;
-	f->h_bool += (f->flags['p'] && *s) ? 2 : 0;
+	f->h_bool += (!f->h_bool && f->flags['p']) ? 2 : 0;
 	put_d(f, s, ft_strlen(s) + f->s_bool + f->h_bool); // + s_bool to check (size)
 }
 
