@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/16 18:01:00 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/16 22:37:17 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,12 @@ long long  get_arg_u(t_flags *f)
 	if (f->mod['L'])
 		return (va_arg(f->ap, unsigned long long));
 	if (f->mod['l'])
-		return (va_arg(f->ap, unsigned long));
+	{	
+		if (f->id == 'C')
+			return (va_arg(f->ap, wchar_t));
+		else 
+			return (va_arg(f->ap, unsigned long));
+	}
 	if (f->mod['h'])
 		return ((unsigned short)va_arg(f->ap, unsigned int));
 	if (f->mod['H'])
@@ -327,11 +332,31 @@ void put_d(t_flags *f, char *s, int len)
 	f->plen += max(f->width, f->precision + f->s_bool + f->h_bool, len);
 }
 
+
+//void conv_s(t_flags *f)
+//{
+//	
+//
+//
+//}
+//
+//void put_s(t_flags *f, char *s)
+//{
+//	
+//
+//
+//}
+
 void put_c(t_flags *f)
 {
 	unsigned char c;
+	int n;	
 
+	n = (f->width > 0) ? f->width : 1;
 	c = get_arg_u(f);
+	!f->flags['-'] && !f->flags['0'] ? pad(f->width - 1, ' ') : 0;
+	f->flags['0'] && !f->flags['-'] ? pad(f->width - 1, '0') : 0;
 	ft_putchar(c);
-	f->plen++;
+	f->flags['-'] ? pad(f->width - 1, ' ') : 0;
+	f->plen += n;
 }
