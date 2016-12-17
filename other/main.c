@@ -40,9 +40,42 @@ int ret = 1;
 int current(void)
 {
 
-		int bin = 0b1100001110001000;
-			
-		ft_printf("%d = |%-#40.35b|", bin, bin);		
+		int enc = 0b111000001000000010000000;
+		int hex = 0b1100001110001000;
+		int mask;
+		int shift = 8;
+
+		enc = hex & 0x3f | enc;
+		while (hex >>= 6)
+		{
+			mask = hex & 0x3f;
+			mask <<= shift;
+			enc = mask | enc;
+			shift += shift;
+		}
+
+
+
+//		ft_printf("%#b <-- raw hex a encoder\n", raw_hex);	
+//		ft_printf("%#b <-- 3 octets UTF-8 vides\n", enc);	
+//
+//		enc = tmp & 0x3f | enc;
+//
+//		tmp >>= 6;
+//		mask = tmp & 0x3f;
+//		mask <<= 8;
+//		enc = mask | enc;
+//	
+//		tmp >>= 6;
+//		mask = tmp & 0x3f;
+//		mask <<= 16;
+//		enc = mask | enc;
+//
+//		ft_printf("%#b <-- 3 octets UTF-8 encodes\n\n", enc);	
+		
+		printf("%C\n", 0b111011001000111010001000);
+
+		
 
 	//	ft_printf("\n%b\n", 15);
 	//	ft_printf("|%-#20.15b|\n", 15);
