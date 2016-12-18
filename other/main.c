@@ -18,6 +18,8 @@
 #include "test_runner.h"
 #include "libftprintf.h"
 #include <fcntl.h>
+#include <locale.h>
+
 int ret = 1;
 #define MUTE freopen("../other/ret.txt", "w", stdout)
 #define UNMUTE freopen ("/dev/tty", "a", stdout)
@@ -39,9 +41,13 @@ int ret = 1;
 
 int current(void)
 {
-
+    setlocale(LC_ALL, "");	
+	
+	//	wchar_t s = L'€';
+	
+	
 		int enc = 0b111000001000000010000000;
-		int hex = 0b1100001110001000;
+		wchar_t hex = L'€';
 		int mask;
 		int shift = 8;
 
@@ -53,7 +59,17 @@ int current(void)
 			enc = mask | enc;
 			shift += shift;
 		}
-
+			
+	
+		wchar_t unic = 0b1100010010000010;
+			
+		ft_putchar(enc >> 16);	
+		ft_putchar((enc << 8) >> 16);	
+		ft_putchar((enc << 16) >> 16);	
+		ft_putchar('\n');	
+	
+		printf("la %lc  la\n", hex);
+		printf("Ȧ \n");
 
 
 //		ft_printf("%#b <-- raw hex a encoder\n", raw_hex);	
