@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/18 14:05:52 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/19 16:16:56 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -367,7 +367,7 @@ void put_d(t_flags *f, char *s, int len)
 
 void put_c(t_flags *f)
 {
-	unsigned char c;
+	wchar_t c;
 	int n;	
 
 	n = (f->width > 0) ? f->width : 1;
