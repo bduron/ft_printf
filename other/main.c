@@ -39,37 +39,81 @@ int ret = 1;
 
 /* Current test *********************************/
 
+int ft_putwchar(wchar_t c)
+{
+		int utf;
+		int mask;
+		int shift; 
+		int nboctet;
+		
+		utf = 0;
+		shift = 8;
+		nboctet = 1;
+		utf = (c <= 0x1fffff) ? 0b11110000100000001000000010000000 : utf;
+		utf = (c <= 0xffff) ? 0b111000001000000010000000 : utf;
+		utf = (c <= 0x7ff) ? 0b1100000010000000 : utf;
+		utf = (c <= 0x7f) ? 0b00000000 : utf;
+		utf = c & 0x3f | utf;
+		while (c >>= 6)
+		{
+			mask = c & 0x3f;
+			mask <<= shift;
+			utf = mask | utf;
+			shift += shift;
+			nboctet++;
+		}
+		shift = 0;
+		while (shift < nboctet)
+			ft_putchar((utf << (shift++ * 8)) >> ((nboctet - 1) * 8));	
+}
+
+
+
 int current(void)
 {
     setlocale(LC_ALL, "");	
+	wchar_t c = L'༼';
+		
+	ft_putwchar(L'༼');	
+	printf("%lc", c);	
+
+	for (c = 1000; c < 5000; c++)	
+	{
+	//	ft_printf("  ");
+	//	ft_putwchar(c);
+		printf("%lc  ", c);
+	}
+		printf("\n");
+
+	ft_putchar(0b11100001);	
+	ft_putchar(0b10000011);	
+	ft_putchar(0b10010101);	
 	
 	//	wchar_t s = L'€';
 	
 	
-		int enc = 0b111000001000000010000000;
-		wchar_t hex = L'€';
-		int mask;
-		int shift = 8;
+	//	int enc = 0b111000001000000010000000;
+	//	wchar_t hex = L'€';
+	//	int mask;
+	//	int shift = 8;
 
-		enc = hex & 0x3f | enc;
-		while (hex >>= 6)
-		{
-			mask = hex & 0x3f;
-			mask <<= shift;
-			enc = mask | enc;
-			shift += shift;
-		}
-			
+	//	enc = hex & 0x3f | enc;
+	//	while (hex >>= 6)
+	//	{
+	//		mask = hex & 0x3f;
+	//		mask <<= shift;
+	//		enc = mask | enc;
+	//		shift += shift;
+	//	}
+	//		
+	//
+	//	wchar_t unic = 0b1100010010000010;
+	//		
+	//	ft_putchar(enc >> 16);	
+	//	ft_putchar((enc << 8) >> 16);	
+	//	ft_putchar((enc << 16) >> 16);	
+	//	ft_putchar('\n');	
 	
-		wchar_t unic = 0b1100010010000010;
-			
-		ft_putchar(enc >> 16);	
-		ft_putchar((enc << 8) >> 16);	
-		ft_putchar((enc << 16) >> 16);	
-		ft_putchar('\n');	
-	
-		printf("la %lc  la\n", hex);
-		printf("Ȧ \n");
 
 
 //		ft_printf("%#b <-- raw hex a encoder\n", raw_hex);	
@@ -89,7 +133,6 @@ int current(void)
 //
 //		ft_printf("%#b <-- 3 octets UTF-8 encodes\n\n", enc);	
 		
-		printf("%C\n", 0b111011001000111010001000);
 
 		
 
@@ -104,7 +147,6 @@ int current(void)
 		
 		//wchar_t unic = 0x1117;	
 	//	char s[]={0xe3,0x81,0x82,0x0};
-		printf("hex = %C \n", L"䗕");
 		//	unsigned char c;
 		//	c = 0x;
 		//	write(1, &c, 1);
@@ -1936,10 +1978,11 @@ int test_di(void)
 int test_uU(void)
 {
 		check("%lu", "-42");
+		check("%lu", "-42");
 		check("%u", 0);                         
 		check("%u", 1);                         
 		check("%u", -1);                        
-		check("%u", 4294967295);                
+		check("% .12u", 4294967295);                
 		check("%u", 4294967296);                
 		check("%5u", 4294967295);               
 		check("%15u", 4294967295);              
@@ -4160,15 +4203,15 @@ int main(void)
 {
 
 		_BEGIN_TEST;
-		_RUN(current);
-//		_RUN(test_di);
-//		_RUN(test_o);
-//		_RUN(test_O);
-		_RUN(test_c);
-//		_RUN(test_xX);
-//		_RUN(test_uU);
-//		_RUN(test_D);
-//		_RUN(test_p);
+//		_RUN(current);
+		_RUN(test_di);
+		_RUN(test_o);
+		_RUN(test_O);
+  		_RUN(test_c);
+		_RUN(test_xX);
+		_RUN(test_uU);
+		_RUN(test_D);
+		_RUN(test_p);
 
 		return (0);
 }
