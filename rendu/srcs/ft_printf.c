@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/19 17:47:20 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/20 10:51:14 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,12 @@ int pad(int len, char c)
 void launch_conv(t_flags *f)
 {
 	(f->id == 'd' || f->id == 'i' || f->id == 'o' || is_x(f)) ? conv_d(f) : 0;
-	(f->id == 'c' || f->id == 'C') ? put_c(f) : 0 ;
+	if (f->id == 'C')
+	{
+		f->id = 'c';
+		f->mod['l']++;	
+	}	
+	(f->id == 'c') ? put_c(f) : 0 ;
 	if (f->id == 'O')
 	{	
 		f->id = 'o';
@@ -246,7 +251,7 @@ long long  get_arg_u(t_flags *f)
 		return (va_arg(f->ap, unsigned long long));
 	if (f->mod['l'])
 	{	
-		if (f->id == 'C')
+		if (f->id == 'c' )
 			return (va_arg(f->ap, wchar_t));
 		else 
 			return (va_arg(f->ap, unsigned long));
@@ -257,7 +262,7 @@ long long  get_arg_u(t_flags *f)
 		return ((unsigned char)va_arg(f->ap, unsigned int));
 
 	return (va_arg(f->ap, unsigned int));
-  }
+}
 
 char *itobin(t_flags *f, unsigned long long n, char *p)
 {
@@ -303,7 +308,7 @@ void conv_d(t_flags *f)
 	unsigned long m;
 
 	nb = ((f->id == 'd' || f->id == 'i') && !f->flags['u']) ?
-	   	get_arg(f) : get_arg_u(f);
+		get_arg(f) : get_arg_u(f);
 	if (nb < 0 && f->id != 'o' && !is_x(f))
 		f->sign = '-';
 	else if (f->flags['+'] && f->id != 'o' && !is_x(f))
@@ -350,6 +355,34 @@ void put_d(t_flags *f, char *s, int len)
 	f->plen += max(f->width, f->precision + f->s_bool + f->h_bool, len);
 }
 
+int ft_putwchar(wchar_t c)
+{
+	int utf;
+	int mask;
+	int shift;
+	int nboctet;
+
+	utf = 0;
+	shift = 8;
+	nboctet = 1;
+	utf = (c <= 0x1fffff) ? 0b11110000100000001000000010000000 : utf;
+	utf = (c <= 0xffff) ? 0b111000001000000010000000 : utf;
+	utf = (c <= 0x7ff) ? 0b1100000010000000 : utf;
+	utf = (c <= 0x7f) ? 0b00000000 : utf;
+	utf = (utf) ? c & 0x3f | utf : c & 0x7f | utf;
+	while (c >>= 6)
+	{
+		mask = c & 0x3f;
+		mask <<= shift;
+		utf = mask | utf;
+		shift += shift;
+		nboctet++;
+	}
+	shift = 0;
+	while (shift < nboctet)
+		ft_putchar((utf << (shift++ * 8)) >> ((nboctet - 1) * 8));
+	return (nboctet - 1);
+}
 
 //void conv_s(t_flags *f)
 //{
@@ -374,7 +407,13 @@ void put_c(t_flags *f)
 	c = get_arg_u(f);
 	!f->flags['-'] && !f->flags['0'] ? pad(f->width - 1, ' ') : 0;
 	f->flags['0'] && !f->flags['-'] ? pad(f->width - 1, '0') : 0;
-	ft_putchar(c);
+	if	(f->mod['l']) 
+	{	
+  		(c > 127) ? f->plen += ft_putwchar(c) : 0;
+  		(c <= 127) ? ft_putchar(c) : 0;
+	}
+	else
+		ft_putchar(c);
 	f->flags['-'] ? pad(f->width - 1, ' ') : 0;
 	f->plen += n;
 }
