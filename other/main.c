@@ -42,14 +42,389 @@ int ret = 1;
 int current(void)
 {
 	setlocale(LC_ALL, "");	
-	wchar_t c = L'༼';
 
-//	printf("%lc", L'❤');
-	ft_putwchar(L'❤');	
-	ft_putwchar(L'a');	
+	check("%S", L"❤ fun ❤");
+//	printf("%S", L"s:\\яшертыHello");
+
+	printf("Len =  %zu\n", ft_strwlen(L"Hello"));
+	printf("Len =  %zu\n", ft_strwlen(L"❤a"));
+
+	check("Hello %S world", L"❤ ❤ ❤ ❤  fun ❤ ❤ ❤ ");
+
+	check("%S", L"s:\\яшертыHello");
+
+
+	//	printf("ftlen =  %d  ", ft_printf("|%lu|\n", "-42"));
+	//	printf("plen = %d  ", printf("|%lu|\n", "-42"));
+
+
+	//wchar_t c = 0b01100001011000100110001101100100;
+	wchar_t c = 0b10100100100111011110001000000000;
+	write(1, &c, 4);
+
+	//	printf("%lc", L'❤');
+	//	ft_putwchar(L'❤');	
+	//	ft_putwchar(L'a');	
 
 
 	//	wchar_t s = L'€';
+
+	return (0);
+}
+
+
+/* test_S *********************************/
+
+int test_S(void)
+{
+
+	setlocale(LC_ALL, "");	
+	wchar_t buf[] = {1040, 945, 1042, 0x03B12, 0x03B12, 0x03B12, 0};
+
+	check("%.7S", buf);
+	check("%S", buf);
+	check("%S", L"s:\\яшертыHello");
+	check("%.S",L"Hello");
+	check("%.1S",L"Hello");
+	check("%.2S", L"Hello");
+	check("%.0S", L"Hello");
+	check("%.10S", L"Hello");
+	check("%3.2S", L"Hello world");
+	check("%1.1S", L"Hello world");
+	check("%4.3S", L"Hello world");
+	check("%.2S", L"Hello world");
+	check("%S", L"Hello world");
+	check("%.2S", L"Hello world");
+	check("%.7S", L"Hello world");
+	check("%.3S", L"Hello world");
+	check("% S", NULL);
+	check("% 3S", NULL);
+	check("% S", L"Hello world");
+	check("% 2S", L"Hello world");
+	check("% 7S", L"Hello world");
+	check("%S", NULL);
+	check("%S", L"");
+	check("%S", L"abcdefghijklmnopqrtuvwxyz");
+	check("%S", buf);
+	check("%.S",buf);
+	check("%.1S",buf);
+	check("%.2S", buf);
+	check("%.0S", buf);
+	check("%.10S", buf);
+	check("%3.2S", buf);
+	check("%1.1S", buf);
+	check("%4.3S", buf);
+	check("%.2S", buf);
+	check("%S", buf);
+	check("%.2S", buf);
+	check("%.7S", buf);
+	check("%.3S", buf);
+	check("% S", NULL);
+	check("% 3S", NULL);
+	check("% S",buf);
+	check("% 2S", buf);
+	check("% 7S",buf);
+	check("%S", NULL);
+	check("%S", buf);
+	check("%S", buf);
+	check("%hS", buf);
+	check("%hS", L"s:\\яшертыHello");
+	check("%.hS",L"Hello");
+	check("%.1hS",L"Hello");
+	check("%.2hS", L"Hello");
+	check("%.0hS", L"Hello");
+	check("%.10hS", L"Hello");
+	check("%3.2hS", L"Hello world");
+	check("%1.1hS", L"Hello world");
+	check("%4.3hS", L"Hello world");
+	check("%.2hS", L"Hello world");
+	check("%hS", L"Hello world");
+	check("%.2hS", L"Hello world");
+	check("%.7hS", L"Hello world");
+	check("%.3hS", L"Hello world");
+	check("% hS", NULL);
+	check("% 3hS", NULL);
+	check("% hS", L"Hello world");
+	check("% 2hS", L"Hello world");
+	check("% 7hS", L"Hello world");
+	check("%hS", NULL);
+	check("%hS", L"");
+	check("%hS", L"abcdefghijklmnopqrtuvwxyz");
+	check("%hS", buf);
+	check("%.hS",buf);
+	check("%.1hS",buf);
+	check("%.2hS", buf);
+	check("%.0hS", buf);
+	check("%.10hS", buf);
+	check("%3.2hS", buf);
+	check("%1.1hS", buf);
+	check("%4.3hS", buf);
+	check("%.2hS", buf);
+	check("%hS", buf);
+	check("%.2hS", buf);
+	check("%.7hS", buf);
+	check("%.3hS", buf);
+	check("% hS", NULL);
+	check("% 3hS", NULL);
+	check("% hS",buf);
+	check("% 2hS", buf);
+	check("% 7hS",buf);
+	check("%hS", NULL);
+	check("%hS", buf);
+	check("%hS", buf);
+	check("%hhS", buf);
+	check("%hhS", L"s:\\яшертыHello");
+	check("%.hhS",L"Hello");
+	check("%.1hhS",L"Hello");
+	check("%.2hhS", L"Hello");
+	check("%.0hhS", L"Hello");
+	check("%.10hhS", L"Hello");
+	check("%3.2hhS", L"Hello world");
+	check("%1.1hhS", L"Hello world");
+	check("%4.3hhS", L"Hello world");
+	check("%.2hhS", L"Hello world");
+	check("%hhS", L"Hello world");
+	check("%.2hhS", L"Hello world");
+	check("%.7hhS", L"Hello world");
+	check("%.3hhS", L"Hello world");
+	check("% hhS", NULL);
+	check("% 3hhS", NULL);
+	check("% hhS", L"Hello world");
+	check("% 2hhS", L"Hello world");
+	check("% 7hhS", L"Hello world");
+	check("%hhS", NULL);
+	check("%hhS", L"");
+	check("%hhS", L"abcdefghijklmnopqrtuvwxyz");
+	check("%hhS", buf);
+	check("%.hhS",buf);
+	check("%.1hhS",buf);
+	check("%.2hhS", buf);
+	check("%.0hhS", buf);
+	check("%.10hhS", buf);
+	check("%3.2hhS", buf);
+	check("%1.1hhS", buf);
+	check("%4.3hhS", buf);
+	check("%.2hhS", buf);
+	check("%hhS", buf);
+	check("%.2hhS", buf);
+	check("%.7hhS", buf);
+	check("%.3hhS", buf);
+	check("% hhS", NULL);
+	check("% 3hhS", NULL);
+	check("% hhS",buf);
+	check("% 2hhS", buf);
+	check("% 7hhS",buf);
+	check("%hhS", NULL);
+	check("%hhS", buf);
+	check("%hhS", buf);
+	check("%lS", buf);
+	check("%lS", L"s:\\яшертыHello");
+	check("%.lS",L"Hello");
+	check("%.1lS",L"Hello");
+	check("%.2lS", L"Hello");
+	check("%.0lS", L"Hello");
+	check("%.10lS", L"Hello");
+	check("%3.2lS", L"Hello world");
+	check("%1.1lS", L"Hello world");
+	check("%4.3lS", L"Hello world");
+	check("%.2lS", L"Hello world");
+	check("%lS", L"Hello world");
+	check("%.2lS", L"Hello world");
+	check("%.7lS", L"Hello world");
+	check("%.3lS", L"Hello world");
+	check("% lS", NULL);
+	check("% 3lS", NULL);
+	check("% lS", L"Hello world");
+	check("% 2lS", L"Hello world");
+	check("% 7lS", L"Hello world");
+	check("%lS", NULL);
+	check("%lS", L"");
+	check("%lS", L"abcdefghijklmnopqrtuvwxyz");
+	check("%lS", buf);
+	check("%.lS",buf);
+	check("%.1lS",buf);
+	check("%.2lS", buf);
+	check("%.0lS", buf);
+	check("%.10lS", buf);
+	check("%3.2lS", buf);
+	check("%1.1lS", buf);
+	check("%4.3lS", buf);
+	check("%.2lS", buf);
+	check("%lS", buf);
+	check("%.2lS", buf);
+	check("%.7lS", buf);
+	check("%.3lS", buf);
+	check("% lS", NULL);
+	check("% 3lS", NULL);
+	check("% lS",buf);
+	check("% 2lS", buf);
+	check("% 7lS",buf);
+	check("%lS", NULL);
+	check("%lS", buf);
+	check("%lS", buf);
+	check("%llS", buf);
+	check("%llS", L"s:\\яшертыHello");
+	check("%.llS",L"Hello");
+	check("%.1llS",L"Hello");
+	check("%.2llS", L"Hello");
+	check("%.0llS", L"Hello");
+	check("%.10llS", L"Hello");
+	check("%3.2llS", L"Hello world");
+	check("%1.1llS", L"Hello world");
+	check("%4.3llS", L"Hello world");
+	check("%.2llS", L"Hello world");
+	check("%llS", L"Hello world");
+	check("%.2llS", L"Hello world");
+	check("%.7llS", L"Hello world");
+	check("%.3llS", L"Hello world");
+	check("% llS", NULL);
+	check("% 3llS", NULL);
+	check("% llS", L"Hello world");
+	check("% 2llS", L"Hello world");
+	check("% 7llS", L"Hello world");
+	check("%llS", NULL);
+	check("%llS", L"");
+	check("%llS", L"abcdefghijklmnopqrtuvwxyz");
+	check("%llS", buf);
+	check("%.llS",buf);
+	check("%.1llS",buf);
+	check("%.2llS", buf);
+	check("%.0llS", buf);
+	check("%.10llS", buf);
+	check("%3.2llS", buf);
+	check("%1.1llS", buf);
+	check("%4.3llS", buf);
+	check("%.2llS", buf);
+	check("%llS", buf);
+	check("%.2llS", buf);
+	check("%.7llS", buf);
+	check("%.3llS", buf);
+	check("% llS", NULL);
+	check("% 3llS", NULL);
+	check("% llS",buf);
+	check("% 2llS", buf);
+	check("% 7llS",buf);
+	check("%llS", NULL);
+	check("%llS", buf);
+	check("%llS", buf);
+	check("%zS", buf);
+	check("%zS", L"s:\\яшертыHello");
+	check("%.zS",L"Hello");
+	check("%.1zS",L"Hello");
+	check("%.2zS", L"Hello");
+	check("%.0zS", L"Hello");
+	check("%.10zS", L"Hello");
+	check("%3.2zS", L"Hello world");
+	check("%1.1zS", L"Hello world");
+	check("%4.3zS", L"Hello world");
+	check("%.2zS", L"Hello world");
+	check("%zS", L"Hello world");
+	check("%.2zS", L"Hello world");
+	check("%.7zS", L"Hello world");
+	check("%.3zS", L"Hello world");
+	check("% zS", NULL);
+	check("% 3zS", NULL);
+	check("% zS", L"Hello world");
+	check("% 2zS", L"Hello world");
+	check("% 7zS", L"Hello world");
+	check("%zS", NULL);
+	check("%zS", L"");
+	check("%zS", L"abcdefghijklmnopqrtuvwxyz");
+	check("%zS", buf);
+	check("%.zS",buf);
+	check("%.1zS",buf);
+	check("%.2zS", buf);
+	check("%.0zS", buf);
+	check("%.10zS", buf);
+	check("%3.2zS", buf);
+	check("%1.1zS", buf);
+	check("%4.3zS", buf);
+	check("%.2zS", buf);
+	check("%zS", buf);
+	check("%.2zS", buf);
+	check("%.7zS", buf);
+	check("%.3zS", buf);
+	check("% zS", NULL);
+	check("% 3zS", NULL);
+	check("% zS",buf);
+	check("% 2zS", buf);
+	check("% 7zS",buf);
+	check("%zS", NULL);
+	check("%zS", buf);
+	check("%zS", buf);
+	check("%jS", buf);
+	check("%jS", L"s:\\яшертыHello");
+	check("%.jS",L"Hello");
+	check("%.1jS",L"Hello");
+	check("%.2jS", L"Hello");
+	check("%.0jS", L"Hello");
+	check("%.10jS", L"Hello");
+	check("%3.2jS", L"Hello world");
+	check("%1.1jS", L"Hello world");
+	check("%4.3jS", L"Hello world");
+	check("%.2jS", L"Hello world");
+	check("%jS", L"Hello world");
+	check("%.2jS", L"Hello world");
+	check("%.7jS", L"Hello world");
+	check("%.3jS", L"Hello world");
+	check("% jS", NULL);
+	check("% 3jS", NULL);
+	check("% jS", L"Hello world");
+	check("% 2jS", L"Hello world");
+	check("% 7jS", L"Hello world");
+	check("%jS", NULL);
+	check("%jS", L"");
+	check("%jS", L"abcdefghijklmnopqrtuvwxyz");
+	check("%jS", buf);
+	check("%.jS",buf);
+	check("%.1jS",buf);
+	check("%.2jS", buf);
+	check("%.0jS", buf);
+	check("%.10jS", buf);
+	check("%3.2jS", buf);
+	check("%1.1jS", buf);
+	check("%4.3jS", buf);
+	check("%.2jS", buf);
+	check("%jS", buf);
+	check("%.2jS", buf);
+	check("%.7jS", buf);
+	check("%.3jS", buf);
+	check("% jS", NULL);
+	check("% 3jS", NULL);
+	check("% jS",buf);
+	check("% 2jS", buf);
+	check("% 7jS",buf);
+	check("%jS", NULL);
+	check("%jS", buf);
+	check("%jS", buf);
+
+	return (0);
+}
+
+/* test_s *********************************/
+
+int test_s(void)
+{
+	check("%s", "abc");                       
+	check("@moulitest: %s", NULL);                       
+	check("%s", "this is a string");          
+	check("%s ", "this is a string");         
+	check("%s  ", "this is a string");        
+	check("this is a %s", "string");          
+	check("%s is a string", "this");          
+	//check("Line Feed %s", "\n");              
+	check("%10s is a string", "this");        
+	check("%.2s is a string", "this");        
+	check("%5.2s is a string", "this");       
+	check("%10s is a string", "");            
+	check("%.2s is a string", "");            
+	check("%5.2s is a string", "");           
+	check("%-10s is a string", "this");       
+	check("%-.2s is a string", "this");       
+	check("%-5.2s is a string", "this");      
+	check("%-10s is a string", "");           
+	check("%-.2s is a string", "");           
+	check("%-5.2s is a string", "");          
 
 	return (0);
 }
@@ -60,7 +435,7 @@ int current(void)
 int test_C(void)
 {
 	setlocale(LC_ALL, "");	
-	//	check("%C", NULL);                 
+	check("%C", NULL);                 
 	check("%C", L'❤');                 
 	check("%C", L'Å');                 
 	return (0);
@@ -1878,6 +2253,7 @@ int test_di(void)
 
 int test_uU(void)
 {
+	check("%lu", "-42");
 	check("%lu", "-42");
 	check("%lu", "-42");
 	check("%u", 0);                         
@@ -4105,15 +4481,17 @@ int main(void)
 
 	_BEGIN_TEST;
 	_RUN(current);
-	_RUN(test_di);
-	_RUN(test_o);
-	_RUN(test_O);
-	_RUN(test_c);
-	_RUN(test_C);
-	_RUN(test_xX);
-	_RUN(test_uU);
-	_RUN(test_D);
-	_RUN(test_p);
+	//	_RUN(test_di);
+	//	_RUN(test_o);
+	//	_RUN(test_O);
+	//	_RUN(test_c);
+	//	_RUN(test_C);
+	//	_RUN(test_xX);
+	//	_RUN(test_uU);
+	//	_RUN(test_D);
+	//	_RUN(test_p);
+//		_RUN(test_s);
+//		_RUN(test_S);
 
 	return (0);
 }

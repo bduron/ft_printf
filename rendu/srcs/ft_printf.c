@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/20 10:51:14 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/20 17:21:09 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,8 @@ void launch_conv(t_flags *f)
 		conv_d(f);
 	}
 	f->id == '%' ? conv_d(f) : 0;
+	f->id == 's' ? put_s(f) : 0;
+	f->id == 'S' ? put_s_maj(f) : 0;
 }
 
 long long  get_arg(t_flags *f)
@@ -369,7 +371,7 @@ int ft_putwchar(wchar_t c)
 	utf = (c <= 0xffff) ? 0b111000001000000010000000 : utf;
 	utf = (c <= 0x7ff) ? 0b1100000010000000 : utf;
 	utf = (c <= 0x7f) ? 0b00000000 : utf;
-	utf = (utf) ? c & 0x3f | utf : c & 0x7f | utf;
+	utf = (utf) ? (c & 0x3f) | utf : (c & 0x7f) | utf;
 	while (c >>= 6)
 	{
 		mask = c & 0x3f;
@@ -384,19 +386,67 @@ int ft_putwchar(wchar_t c)
 	return (nboctet - 1);
 }
 
-//void conv_s(t_flags *f)
-//{
-//	
-//
-//
-//}
-//
-//void put_s(t_flags *f, char *s)
-//{
-//	
-//
-//
-//}
+void put_s(t_flags *f)
+{
+	char *s;
+	size_t len;
+	int n;
+
+	if (!(s = va_arg(f->ap, char *)))
+		s = "(null)";
+	len = ft_strlen(s);
+	if (f->precision >= 0)
+			f->flags['0'] = 0;
+	if (f->precision >= 0 && f->precision < len)
+			len = f->precision;
+	n = len;
+	if (!f->flags['-'])
+			pad(f->width - len, ' ');
+	while (n--)
+		ft_putchar(*s++);
+	if (f->flags['-'])
+			pad(f->width - len, ' ');	
+	if (len != 0) 
+		f->plen += max(f->width, f->precision, len);
+	else 
+		f->plen += f->width;
+}
+
+size_t ft_strwlen(wchar_t *s)
+{
+	size_t len;
+
+	len = 0;
+	while (s[len] != L'\0')
+		len++;
+	return (len);
+}
+
+void put_s_maj(t_flags *f)
+{
+	wchar_t *s;
+	size_t len;
+	int n;
+
+	if (!(s = va_arg(f->ap, wchar_t *)))
+		s = L"(null)";
+	len = ft_strwlen(s);
+	if (f->precision >= 0)
+			f->flags['0'] = 0;
+	if (f->precision >= 0 && f->precision < len)
+			len = f->precision;
+	n = len;
+	if (!f->flags['-'])
+			pad(f->width - len, ' ');
+	while (n--)
+		f->plen += ft_putwchar(*s++);
+	if (f->flags['-'])
+			pad(f->width - len, ' ');	
+//	if (len != 0) 
+//		f->plen += max(f->width, f->precision, len);
+//	else 
+//		f->plen += f->width;
+}
 
 void put_c(t_flags *f)
 {
