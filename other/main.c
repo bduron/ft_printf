@@ -63,15 +63,35 @@ int current(void)
 	write(1, &c, 4);
 
 	//	printf("%lc", L'❤');
-	//	ft_putwchar(L'❤');	
+		ft_putwchar(L'❤');	
 	//	ft_putwchar(L'a');	
 
 
-	//	wchar_t s = L'€';
+		wchar_t s = L'€';
 
 	return (0);
 }
 
+/* test_percent *********************************/
+
+int test_percent(void)
+{
+	printf("%");
+	printf("\n --------------- \n");
+//	ft_printf("%");
+	printf("%20.10c", '%');
+	printf("\n");
+	printf("%020.10c", 'c');
+	printf("\n");
+	check("%%", 42);
+	check("%.7%", 42);
+	check("%020.10%", 42);
+	check("%+20.10%", 42);
+	check("% 20.10%", 42);
+	check("% 20.10%", 42);
+
+	return (0);
+}
 
 /* test_S *********************************/
 
@@ -4480,18 +4500,19 @@ int main(void)
 {
 
 	_BEGIN_TEST;
-	_RUN(current);
-	//	_RUN(test_di);
-	//	_RUN(test_o);
-	//	_RUN(test_O);
-	//	_RUN(test_c);
-	//	_RUN(test_C);
-	//	_RUN(test_xX);
-	//	_RUN(test_uU);
-	//	_RUN(test_D);
-	//	_RUN(test_p);
-//		_RUN(test_s);
-//		_RUN(test_S);
+//	_RUN(current);
+	_RUN(test_percent);
+//_RUN(test_di);
+//_RUN(test_o);
+//_RUN(test_O);
+//_RUN(test_c);
+//_RUN(test_C);
+//_RUN(test_xX);
+//_RUN(test_uU);
+//_RUN(test_D);
+//_RUN(test_p);
+//_RUN(test_s);
+//_RUN(test_S);
 
 	return (0);
 }

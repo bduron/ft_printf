@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/20 17:21:09 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/22 18:54:24 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ void launch_conv(t_flags *f)
 	f->id == '%' ? conv_d(f) : 0;
 	f->id == 's' ? put_s(f) : 0;
 	f->id == 'S' ? put_s_maj(f) : 0;
+	f->id == '%' ? put_c(f) : 0; // A verifier 
 }
 
 long long  get_arg(t_flags *f)
@@ -266,7 +267,7 @@ long long  get_arg_u(t_flags *f)
 	return (va_arg(f->ap, unsigned int));
 }
 
-char *itobin(t_flags *f, unsigned long long n, char *p)
+char *itobin(unsigned long long n, char *p)
 {
 	*--p = (n & 0x1) ? '1' : '0';
 	while (n >>= 1)
@@ -280,7 +281,7 @@ char *itob(t_flags *f, unsigned long long n)
 
 	p = &f->str[255];
 	if (f->flags['b'])
-		return (itobin(f, n, p));
+		return (itobin(n, p));
 	if (f->id == 'o')
 	{
 		*--p = (n & 0x7) + '0';
@@ -327,7 +328,6 @@ void conv_d(t_flags *f)
 	f->h_bool += (!f->h_bool && f->flags['p']) ? 2 : 0;
 	put_d(f, s, ft_strlen(s) + f->s_bool + f->h_bool); // + s_bool to check (size)
 }
-
 
 
 void put_d(t_flags *f, char *s, int len)
@@ -397,7 +397,7 @@ void put_s(t_flags *f)
 	len = ft_strlen(s);
 	if (f->precision >= 0)
 			f->flags['0'] = 0;
-	if (f->precision >= 0 && f->precision < len)
+	if (f->precision >= 0 && (size_t)f->precision < len)
 			len = f->precision;
 	n = len;
 	if (!f->flags['-'])
@@ -433,7 +433,7 @@ void put_s_maj(t_flags *f)
 	len = ft_strwlen(s);
 	if (f->precision >= 0)
 			f->flags['0'] = 0;
-	if (f->precision >= 0 && f->precision < len)
+	if (f->precision >= 0 && (size_t)f->precision < len)
 			len = f->precision;
 	n = len;
 	if (!f->flags['-'])
@@ -453,8 +453,9 @@ void put_c(t_flags *f)
 	wchar_t c;
 	int n;	
 
+	//ft_putstr("PUTC OK\n");	// TO DELETE
 	n = (f->width > 0) ? f->width : 1;
-	c = get_arg_u(f);
+	c = (f->id == 'c') ? get_arg_u(f) : f->id;
 	!f->flags['-'] && !f->flags['0'] ? pad(f->width - 1, ' ') : 0;
 	f->flags['0'] && !f->flags['-'] ? pad(f->width - 1, '0') : 0;
 	if	(f->mod['l']) 

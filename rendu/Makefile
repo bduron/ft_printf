@@ -15,7 +15,7 @@ NAME= libftprintf.a
 SRC= srcs/*.c
 OBJ= *.o
 HEADER= includes
-FLAGS= -g -w # -Wall -Wextra -Werror
+FLAGS= -Wall -Wextra -Werror
 #FLAGS= -g -fsanitize=address -Wall -Wextra -Werror
  
 
