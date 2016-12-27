@@ -6,7 +6,7 @@
 #    By: bduron <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/12/06 14:17:35 by bduron            #+#    #+#              #
-#*   Updated: 2016/12/13 22:07:23 by bduron           ###   ########.fr       *#
+#*   Updated: 2016/12/27 15:23:15 by bduron           ###   ########.fr       *#
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME= libftprintf.a
 SRC= srcs/*.c
 OBJ= *.o
 HEADER= includes
-FLAGS= -Wall -Wextra -Werror
+FLAGS= -w -g  #-Wall -Wextra -Werror
 #FLAGS= -g -fsanitize=address -Wall -Wextra -Werror
  
 

@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/22 18:54:24 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/28 00:11:21 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,31 +46,46 @@ void fmt(t_flags *f, const char *format)
 	}
 }
 
-char *get_flags(char *s, t_flags *f)
+char *get_wildcards(t_flags *f, char *s)
 {
-	s++;
-	while (is_flag(*s))
-		f->flags[(int)*s++]++;
-	if (ft_isdigit(*s))
+	if (ft_isdigit(*s))  
+		f->width = ft_atoi((const char*)s);
+	while (ft_isdigit(*s))
+		s++;
+	if (*s == '*')  
+		f->width = (s++) ? va_arg(f->ap, int) : 0;
+	if (f->width < 0)
+	{
+		f->flags['-']++;
+		f->width = -f->width;	
+	}	
+	if (ft_isdigit(*s))  
 		f->width = ft_atoi((const char*)s);
 	while (ft_isdigit(*s))
 		s++;
 	if (*s == '.')
 	{
-		f->precision = ft_atoi((const char*)++s);
-		f->flags['.']++;
+		f->precision = (*++s == '*') ? va_arg(f->ap, int) : ft_atoi((const char*)s);
+		f->precision > 0 ? f->flags['.']++ : 0;
 	}
-	while (ft_isdigit(*s))
+	while (ft_isdigit(*s) || *s == '*')
 		s++;
+	return (s);
+}
+
+char *get_flags(char *s, t_flags *f)
+{
+	s++;
+	while (is_flag(*s))
+		f->flags[(int)*s++]++;
+	s = get_wildcards(f, s);	
 	while (is_mod(*s))
 	{
 		*s == *(s + 1) ? f->mod[(int)ft_toupper(*s++)]++ : f->mod[(int)*s++]++;
 		*s == *(s - 1) ? s++ : 0;
 	}
-	if (is_id(*s))
-		f->id = *s;
-	else
-		exit(-1); /* si !id (ex: % ou @ ou Y) mettre en place la regle %% */
+	(is_id(*s)) ? f->id = *s : --s;
+	(f->id == 0) ? f->plen-- : 0; 
 	return (s);
 }
 
@@ -175,6 +190,18 @@ int pad(int len, char c)
 	return (0);
 }
 
+int isnt_id(t_flags *f)
+{
+	char ids[] = "DdiOoUuxXcCsSbp";
+	int i;
+ 
+	i = 0;
+	while (ids[i])
+		if (f->id == ids[i++])
+			return (0);
+	return (1);
+}
+
 void launch_conv(t_flags *f)
 {
 	(f->id == 'd' || f->id == 'i' || f->id == 'o' || is_x(f)) ? conv_d(f) : 0;
@@ -213,17 +240,14 @@ void launch_conv(t_flags *f)
 	if (f->id == 'u' || f->id == 'U')
 	{	
 		f->mod['l'] = f->id == 'U' ? 1 : f->mod['l'] ;
-		f->id = 'd';
 		f->flags['#'] = 0;
 		f->flags['+'] = 0;
 		f->flags[' '] = 0;
-		f->flags['u'] = 1;
-		conv_d(f);
+		conv_u(f);
 	}
-	f->id == '%' ? conv_d(f) : 0;
 	f->id == 's' ? put_s(f) : 0;
 	f->id == 'S' ? put_s_maj(f) : 0;
-	f->id == '%' ? put_c(f) : 0; // A verifier 
+	(isnt_id(f)) ? put_c(f) : 0; // A verifier  
 }
 
 long long  get_arg(t_flags *f)
@@ -302,6 +326,19 @@ char *itob(t_flags *f, unsigned long long n)
 	while (n /= 10)
 		*--p = n % 10 + '0';
 	return (p);
+}
+
+void conv_u(t_flags *f)
+{
+	char *s;
+	unsigned long nb;
+
+	nb = get_arg_u(f);
+	if (f->flags['.'])
+		f->flags['0'] = 0;
+	s = itob(f, nb);
+	s = (nb == 0 && f->precision == 0 && f->id != 'o') ? "" : s;
+	put_d(f, s, ft_strlen(s));
 }
 
 void conv_d(t_flags *f)
@@ -401,13 +438,13 @@ void put_s(t_flags *f)
 			len = f->precision;
 	n = len;
 	if (!f->flags['-'])
-			pad(f->width - len, ' ');
+			(f->flags['0']) ? pad(f->width - len, '0') : pad(f->width - len, ' ');
 	while (n--)
 		ft_putchar(*s++);
 	if (f->flags['-'])
 			pad(f->width - len, ' ');	
 	if (len != 0) 
-		f->plen += max(f->width, f->precision, len);
+		f->plen += max(f->width, 0, len);
 	else 
 		f->plen += f->width;
 }

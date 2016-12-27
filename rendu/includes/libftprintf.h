@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 17:42:08 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/20 15:50:07 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/27 19:10:34 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int is_x(t_flags *f);
 void put_c(t_flags *f);
 void put_s(t_flags *f);
 void put_s_maj(t_flags *f);
+void conv_u(t_flags *f);
 
 
 void			ft_putchar(char c);

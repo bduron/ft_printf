@@ -41,17 +41,42 @@ int ret = 1;
 
 int current(void)
 {
-	setlocale(LC_ALL, "");	
+	check("{%05s}", "abc");
 
-	check("%S", L"❤ fun ❤");
+	check("{%.5s}", "42");
+
+	printf("ft_ %d \n", ft_printf("{%.*s}", 5, "42"));	
+	printf("p _ %d \n", printf("{%.*s}", 5, "42"));	
+
+//	ft_printf("{%05d}\n", 41);
+//	printf("{%05d}\n\n", 41);
+//
+//	ft_printf("{%05.*d}\n", 1, 42);
+//	printf("{%05.*d}\n\n", 1, 42);
+//
+//	ft_printf("{%05.*d}\n", -15, 42);
+//	printf("{%05.*d}\n\n", -15, 42);
+//
+//	ft_printf("{%.*d}\n", -5, 1);
+//	printf("{%.*d}\n\n", -5, 1);
+//
+//	ft_printf("{%*4d}\n", 2, 4);
+//	printf("{%*4d}\n\n", 2, 4);
+//
+//	printf("My age is %*.*d\n", 20, 10, 42);
+//	ft_printf("My age is %*.*d\n", 20, 10, 42);
+
+//	setlocale(LC_ALL, "");	
+//
+//	check("%S", L"❤ fun ❤");
 //	printf("%S", L"s:\\яшертыHello");
-
-	printf("Len =  %zu\n", ft_strwlen(L"Hello"));
-	printf("Len =  %zu\n", ft_strwlen(L"❤a"));
-
-	check("Hello %S world", L"❤ ❤ ❤ ❤  fun ❤ ❤ ❤ ");
-
-	check("%S", L"s:\\яшертыHello");
+//
+//	printf("Len =  %zu\n", ft_strwlen(L"Hello"));
+//	printf("Len =  %zu\n", ft_strwlen(L"❤a"));
+//
+//	check("Hello %S world", L"❤ ❤ ❤ ❤  fun ❤ ❤ ❤ ");
+//
+//	check("%S", L"s:\\яшертыHello");
 
 
 	//	printf("ftlen =  %d  ", ft_printf("|%lu|\n", "-42"));
@@ -59,15 +84,15 @@ int current(void)
 
 
 	//wchar_t c = 0b01100001011000100110001101100100;
-	wchar_t c = 0b10100100100111011110001000000000;
-	write(1, &c, 4);
+//	wchar_t c = 0b10100100100111011110001000000000;
+//	write(1, &c, 4);
 
 	//	printf("%lc", L'❤');
-		ft_putwchar(L'❤');	
+//		ft_putwchar(L'❤');	
 	//	ft_putwchar(L'a');	
 
 
-		wchar_t s = L'€';
+//		wchar_t s = L'€';
 
 	return (0);
 }
@@ -76,18 +101,20 @@ int current(void)
 
 int test_percent(void)
 {
-	printf("%");
-	printf("\n --------------- \n");
-//	ft_printf("%");
-	printf("%20.10c", '%');
-	printf("\n");
-	printf("%020.10c", 'c');
-	printf("\n");
+	printf("{%}\n");
+	ft_printf("{%}\n");
+	check("m%m", 4);
+	check("aa%%bb", 4);
+	check("%%%%%%%%%%%%", 4);
+	check(".%%.%%.%%.%%.%%.%%.%%.%%.", 4);
+	check("% Zoooo", "");
+	check("%", 3);
+	check("{%}", 3);
+	check("{% %}", 3);
 	check("%%", 42);
 	check("%.7%", 42);
 	check("%020.10%", 42);
 	check("%+20.10%", 42);
-	check("% 20.10%", 42);
 	check("% 20.10%", 42);
 
 	return (0);
@@ -2273,6 +2300,7 @@ int test_di(void)
 
 int test_uU(void)
 {
+	check("%U", ULONG_MAX);
 	check("%lu", "-42");
 	check("%lu", "-42");
 	check("%lu", "-42");
@@ -4500,15 +4528,15 @@ int main(void)
 {
 
 	_BEGIN_TEST;
-//	_RUN(current);
-	_RUN(test_percent);
+	_RUN(current);
+//_RUN(test_percent);
 //_RUN(test_di);
 //_RUN(test_o);
 //_RUN(test_O);
 //_RUN(test_c);
 //_RUN(test_C);
 //_RUN(test_xX);
-//_RUN(test_uU);
+//  _RUN(test_uU);
 //_RUN(test_D);
 //_RUN(test_p);
 //_RUN(test_s);
