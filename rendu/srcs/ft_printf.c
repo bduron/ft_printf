@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/28 00:11:21 by bduron           ###   ########.fr       */
+/*   Updated: 2016/12/28 17:36:32 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char *get_wildcards(t_flags *f, char *s)
 	if (*s == '.')
 	{
 		f->precision = (*++s == '*') ? va_arg(f->ap, int) : ft_atoi((const char*)s);
-		f->precision > 0 ? f->flags['.']++ : 0;
+		f->flags['.']++;
+		f->flags['.'] = f->precision < 0 && *s == '*' ? 0 : 1;
 	}
 	while (ft_isdigit(*s) || *s == '*')
 		s++;
@@ -204,6 +205,8 @@ int isnt_id(t_flags *f)
 
 void launch_conv(t_flags *f)
 {
+	if (f->id == 'o' || f->id == 'O' || is_x(f))
+		f->flags[' '] = 0;
 	(f->id == 'd' || f->id == 'i' || f->id == 'o' || is_x(f)) ? conv_d(f) : 0;
 	if (f->id == 'C')
 	{
@@ -234,6 +237,7 @@ void launch_conv(t_flags *f)
 		f->id = 'x';
 		f->flags['#'] = 1;
 		f->flags['p'] = 1;
+		f->flags[' '] = 0;
 		f->mod['l'] = 1;
 		conv_d(f);
 	}
@@ -361,6 +365,7 @@ void conv_d(t_flags *f)
 	m = (nb > 0) ? nb : -nb;
 	s = (is_x(f) || f->id == 'o') ? itob(f, nb) : itob(f, m);
 	s = (nb == 0 && f->precision == 0 && f->id != 'o') ? "" : s;
+	s = (nb == 0 && f->precision == 0 && f->id == 'o' && !f->flags['#']) ? "" : s;
 	f->h_bool = (f->flags['#'] && *s != '0' && *s && is_x(f)) ? 2 : 0;
 	f->h_bool += (!f->h_bool && f->flags['p']) ? 2 : 0;
 	put_d(f, s, ft_strlen(s) + f->s_bool + f->h_bool); // + s_bool to check (size)
@@ -432,8 +437,8 @@ void put_s(t_flags *f)
 	if (!(s = va_arg(f->ap, char *)))
 		s = "(null)";
 	len = ft_strlen(s);
-	if (f->precision >= 0)
-			f->flags['0'] = 0;
+//	if (f->precision >= 0)
+//			f->flags['0'] = 0;
 	if (f->precision >= 0 && (size_t)f->precision < len)
 			len = f->precision;
 	n = len;
@@ -468,21 +473,19 @@ void put_s_maj(t_flags *f)
 	if (!(s = va_arg(f->ap, wchar_t *)))
 		s = L"(null)";
 	len = ft_strwlen(s);
-	if (f->precision >= 0)
-			f->flags['0'] = 0;
 	if (f->precision >= 0 && (size_t)f->precision < len)
 			len = f->precision;
 	n = len;
 	if (!f->flags['-'])
-			pad(f->width - len, ' ');
+			(f->flags['0']) ? pad(f->width - len, '0') : pad(f->width - len, ' ');
 	while (n--)
 		f->plen += ft_putwchar(*s++);
 	if (f->flags['-'])
 			pad(f->width - len, ' ');	
-//	if (len != 0) 
-//		f->plen += max(f->width, f->precision, len);
-//	else 
-//		f->plen += f->width;
+	if (len != 0) 
+		f->plen += max(f->width, f->precision, len);
+	else 
+		f->plen += f->width;
 }
 
 void put_c(t_flags *f)

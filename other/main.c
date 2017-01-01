@@ -41,12 +41,25 @@ int ret = 1;
 
 int current(void)
 {
-	check("{%05s}", "abc");
+	printf("p  %d \n", printf("{%05.S}", 0));
+	printf("ft %d \n", ft_printf("{%05.S}", 0));
 
-	check("{%.5s}", "42");
+	printf("p  %d \n", printf("{%05.*d}", -15, 42));
+	printf("ft %d \n", ft_printf("{%05.*d}", -15, 42));
 
-	printf("ft_ %d \n", ft_printf("{%.*s}", 5, "42"));	
-	printf("p _ %d \n", printf("{%.*s}", 5, "42"));	
+	printf("\n% o|%+o\n", 42, 42);
+	ft_printf("% o|%+o\n\n", 42, 42);
+
+	printf("% p|%+p\n", 42, 42);
+	ft_printf("% p|%+p\n\n", 42, 42);
+
+	//printf("{% S}", NULL)
+//	check("{%05s}", "abc");
+
+//	check("{%.5s}", "42");
+
+//	printf("ft_ %d \n", ft_printf("{%.*s}", 5, "42"));	
+//	printf("p _ %d \n", printf("{%.*s}", 5, "42"));	
 
 //	ft_printf("{%05d}\n", 41);
 //	printf("{%05d}\n\n", 41);
@@ -1454,6 +1467,8 @@ int test_O(void)
 
 int test_o(void)
 {
+	check("%.o", 0);
+	check("%.0o", 0);
 	check("@moulitest: %#.o", 0);
 	check("@moulitest: %#.0o", 0);
 	check("%o", -512);
@@ -4529,15 +4544,15 @@ int main(void)
 
 	_BEGIN_TEST;
 	_RUN(current);
-//_RUN(test_percent);
-//_RUN(test_di);
-//_RUN(test_o);
-//_RUN(test_O);
-//_RUN(test_c);
-//_RUN(test_C);
-//_RUN(test_xX);
-//  _RUN(test_uU);
-//_RUN(test_D);
+_RUN(test_percent);
+_RUN(test_di);
+_RUN(test_o);
+_RUN(test_O);
+_RUN(test_c);
+_RUN(test_C);
+_RUN(test_xX);
+  _RUN(test_uU);
+_RUN(test_D);
 //_RUN(test_p);
 //_RUN(test_s);
 //_RUN(test_S);
