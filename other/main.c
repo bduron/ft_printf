@@ -41,17 +41,22 @@ int ret = 1;
 
 int current(void)
 {
-	printf("p  %d \n", printf("{%05.S}", 0));
-	printf("ft %d \n", ft_printf("{%05.S}", 0));
 
-	printf("p  %d \n", printf("{%05.*d}", -15, 42));
-	printf("ft %d \n", ft_printf("{%05.*d}", -15, 42));
-
-	printf("\n% o|%+o\n", 42, 42);
-	ft_printf("% o|%+o\n\n", 42, 42);
-
-	printf("% p|%+p\n", 42, 42);
-	ft_printf("% p|%+p\n\n", 42, 42);
+	ft_printf(RED "Bonjour !" RESET GRN "Comment allez-vous ?\n" RESET);
+	ft_printf("%ls", L"ÊM-^ZM-^VÁM-^BM-^I");
+	ft_printf("{%S}", ((void *)0));
+	
+//	printf("p  %d \n", printf("{%05.S}", 0));
+//	printf("ft %d \n", ft_printf("{%05.S}", 0));
+//
+//	printf("p  %d \n", printf("{%05.*d}", -15, 42));
+//	printf("ft %d \n", ft_printf("{%05.*d}", -15, 42));
+//
+//	printf("\n% o|%+o\n", 42, 42);
+//	ft_printf("% o|%+o\n\n", 42, 42);
+//
+//	printf("% p|%+p\n", 42, 42);
+//	ft_printf("% p|%+p\n\n", 42, 42);
 
 	//printf("{% S}", NULL)
 //	check("{%05s}", "abc");
@@ -457,6 +462,13 @@ int test_S(void)
 	check("%jS", NULL);
 	check("%jS", buf);
 	check("%jS", buf);
+	printf("\n------------- File checker tests ------------\n");
+	check("{%S}", NULL);
+	check("%ls", L"ÊM-^ZM-^VÁM-^BM-^I");
+	check("{%30S}", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+	check("{%030S}", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+	check("{% S}", NULL);
+	check("%.4S", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
 
 	return (0);
 }
@@ -4543,16 +4555,16 @@ int main(void)
 {
 
 	_BEGIN_TEST;
-	_RUN(current);
-_RUN(test_percent);
-_RUN(test_di);
-_RUN(test_o);
-_RUN(test_O);
+_RUN(current);
+//_RUN(test_percent);
+//_RUN(test_di);
+//_RUN(test_o);
+//_RUN(test_O);
 _RUN(test_c);
 _RUN(test_C);
-_RUN(test_xX);
-  _RUN(test_uU);
-_RUN(test_D);
+//_RUN(test_xX);
+//_RUN(test_uU);
+//_RUN(test_D);
 //_RUN(test_p);
 //_RUN(test_s);
 //_RUN(test_S);

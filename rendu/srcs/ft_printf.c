@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/30 11:07:32 by bduron            #+#    #+#             */
-/*   Updated: 2016/12/28 17:36:32 by bduron           ###   ########.fr       */
+/*   Updated: 2017/01/02 09:23:27 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,18 @@ void fmt(t_flags *f, const char *format)
 
 char *get_wildcards(t_flags *f, char *s)
 {
-	if (ft_isdigit(*s))  
+	if (ft_isdigit(*s))
 		f->width = ft_atoi((const char*)s);
 	while (ft_isdigit(*s))
 		s++;
-	if (*s == '*')  
+	if (*s == '*')
 		f->width = (s++) ? va_arg(f->ap, int) : 0;
 	if (f->width < 0)
 	{
 		f->flags['-']++;
-		f->width = -f->width;	
-	}	
-	if (ft_isdigit(*s))  
+		f->width = -f->width;
+	}
+	if (ft_isdigit(*s))
 		f->width = ft_atoi((const char*)s);
 	while (ft_isdigit(*s))
 		s++;
@@ -79,14 +79,14 @@ char *get_flags(char *s, t_flags *f)
 	s++;
 	while (is_flag(*s))
 		f->flags[(int)*s++]++;
-	s = get_wildcards(f, s);	
+	s = get_wildcards(f, s);
 	while (is_mod(*s))
 	{
 		*s == *(s + 1) ? f->mod[(int)ft_toupper(*s++)]++ : f->mod[(int)*s++]++;
 		*s == *(s - 1) ? s++ : 0;
 	}
 	(is_id(*s)) ? f->id = *s : --s;
-	(f->id == 0) ? f->plen-- : 0; 
+	(f->id == 0) ? f->plen-- : 0;
 	return (s);
 }
 
@@ -195,7 +195,7 @@ int isnt_id(t_flags *f)
 {
 	char ids[] = "DdiOoUuxXcCsSbp";
 	int i;
- 
+
 	i = 0;
 	while (ids[i])
 		if (f->id == ids[i++])
@@ -211,29 +211,29 @@ void launch_conv(t_flags *f)
 	if (f->id == 'C')
 	{
 		f->id = 'c';
-		f->mod['l']++;	
-	}	
+		f->mod['l']++;
+	}
 	(f->id == 'c') ? put_c(f) : 0 ;
 	if (f->id == 'O')
-	{	
+	{
 		f->id = 'o';
 		f->mod['l'] = 1;
 		conv_d(f);
 	}
 	if (f->id == 'b')
-	{	
+	{
 		f->id = 'x';
 		f->flags['b'] = 1;
 		conv_d(f);
 	}
 	if (f->id == 'D')
-	{	
+	{
 		f->id = 'd';
 		f->mod['l'] = 1;
 		conv_d(f);
 	}
 	if (f->id == 'p')
-	{	
+	{
 		f->id = 'x';
 		f->flags['#'] = 1;
 		f->flags['p'] = 1;
@@ -242,16 +242,16 @@ void launch_conv(t_flags *f)
 		conv_d(f);
 	}
 	if (f->id == 'u' || f->id == 'U')
-	{	
+	{
 		f->mod['l'] = f->id == 'U' ? 1 : f->mod['l'] ;
 		f->flags['#'] = 0;
 		f->flags['+'] = 0;
 		f->flags[' '] = 0;
 		conv_u(f);
 	}
-	f->id == 's' ? put_s(f) : 0;
-	f->id == 'S' ? put_s_maj(f) : 0;
-	(isnt_id(f)) ? put_c(f) : 0; // A verifier  
+	f->id == 'S' || (f->id == 's' && f->mod['l']) ? put_s_maj(f) : 0;
+	f->id == 's' && !f->mod['l'] ? put_s(f) : 0;
+	(isnt_id(f)) ? put_c(f) : 0; // A verifier
 }
 
 long long  get_arg(t_flags *f)
@@ -281,10 +281,10 @@ long long  get_arg_u(t_flags *f)
 	if (f->mod['L'])
 		return (va_arg(f->ap, unsigned long long));
 	if (f->mod['l'])
-	{	
+	{
 		if (f->id == 'c' )
 			return (va_arg(f->ap, wchar_t));
-		else 
+		else
 			return (va_arg(f->ap, unsigned long));
 	}
 	if (f->mod['h'])
@@ -376,7 +376,7 @@ void put_d(t_flags *f, char *s, int len)
 {
 	int n;
 
-	n = (f->precision > len - f->s_bool - f->h_bool) ? 
+	n = (f->precision > len - f->s_bool - f->h_bool) ?
 		f->precision : len - f->s_bool - f->h_bool;
 	(f->sign && f->flags['0']) ? ft_putchar(f->sign) : 0;
 	if (f->width > n && !f->flags['-'] && !f->flags['0'])
@@ -394,7 +394,7 @@ void put_d(t_flags *f, char *s, int len)
 	if (f->precision > len - f->s_bool - f->h_bool)
 		pad(f->precision - len + f->s_bool + f->h_bool, '0');
 	ft_putstr(s);
-	(f->width > n && f->flags['-']) ? 
+	(f->width > n && f->flags['-']) ?
 		pad(f->width - n - f->s_bool - f->h_bool, ' ') : 0;
 	f->plen += max(f->width, f->precision + f->s_bool + f->h_bool, len);
 }
@@ -447,10 +447,10 @@ void put_s(t_flags *f)
 	while (n--)
 		ft_putchar(*s++);
 	if (f->flags['-'])
-			pad(f->width - len, ' ');	
-	if (len != 0) 
+			pad(f->width - len, ' ');
+	if (len != 0)
 		f->plen += max(f->width, 0, len);
-	else 
+	else
 		f->plen += f->width;
 }
 
@@ -471,7 +471,10 @@ void put_s_maj(t_flags *f)
 	int n;
 
 	if (!(s = va_arg(f->ap, wchar_t *)))
+	{
 		s = L"(null)";
+		f->plen -= 4;
+	}
 	len = ft_strwlen(s);
 	if (f->precision >= 0 && (size_t)f->precision < len)
 			len = f->precision;
@@ -481,25 +484,25 @@ void put_s_maj(t_flags *f)
 	while (n--)
 		f->plen += ft_putwchar(*s++);
 	if (f->flags['-'])
-			pad(f->width - len, ' ');	
-	if (len != 0) 
+			pad(f->width - len, ' ');
+	if (len != 0)
 		f->plen += max(f->width, f->precision, len);
-	else 
+	else
 		f->plen += f->width;
 }
 
 void put_c(t_flags *f)
 {
 	wchar_t c;
-	int n;	
+	int n;
 
 	//ft_putstr("PUTC OK\n");	// TO DELETE
 	n = (f->width > 0) ? f->width : 1;
 	c = (f->id == 'c') ? get_arg_u(f) : f->id;
 	!f->flags['-'] && !f->flags['0'] ? pad(f->width - 1, ' ') : 0;
 	f->flags['0'] && !f->flags['-'] ? pad(f->width - 1, '0') : 0;
-	if	(f->mod['l']) 
-	{	
+	if	(f->mod['l'])
+	{
   		(c > 127) ? f->plen += ft_putwchar(c) : 0;
   		(c <= 127) ? ft_putchar(c) : 0;
 	}
