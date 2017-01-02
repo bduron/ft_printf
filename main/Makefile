@@ -10,38 +10,26 @@
 #                                                                              #
 # **************************************************************************** #
 
-EXE= ft_printf
-NAME= libftprintf.a
+RENDU= ../rendu
+NAME= ft_printf
 SRC= srcs/*.c
 OBJ= *.o
-HEADER= includes
+HEADER= ../rendu/includes
 FLAGS= -w -g  #-Wall -Wextra -Werror
-#FLAGS= -g -fsanitize=address -Wall -Wextra -Werror
  
 
 all: $(NAME)
 
 $(NAME):
-	@gcc $(FLAGS) -I $(HEADER) -c $(SRC) 
-	@ar rc $(NAME) $(OBJ)
-#	@ranlib $(NAME)
-	@echo "Compiling libftprintf.a... OK"
-
-exe:
-	@gcc -o $(EXE) $(FLAGS) -L. -lftprintf ../other/main.c -I $(HEADER)
+	@make -C $(RENDU)
+	@gcc -o $(NAME) $(FLAGS) -L../rendu -lftprintf main.c -I $(HEADER)
 	@echo "Compiling ft_printf... OK"
 
-test: 
-	@gcc -o $(EXE) $(FLAGS) -L. -lftprintf ../other/main_ftprintf.c -I $(HEADER)
-	@echo "Compiling main_test... OK"
-
 clean:
-	@rm -f $(OBJ)
+#	@rm -f $(OBJ)
 
 fclean: clean
-	@rm -f $(NAME)
-	@rm -f $(EXE)
-	@rm -rf ft_printf.DSYM
+	@make fclean -C $(RENDU)
 
 re: fclean all
 

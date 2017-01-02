@@ -1,0 +1,8 @@
+check("%.2c", NULL);                 
+check("%c", 42);                     
+check("%5c", 42);                    
+check("%-5c", 42);                   
+check("@moulitest: %c", 0);          
+check("%2c", 0);                     
+check("null %c and text", 0);        
+check("% c", 0);                     
