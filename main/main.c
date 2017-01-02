@@ -21,7 +21,7 @@
 #include <locale.h>
 
 int ret = 1;
-#define MUTE freopen("../other/ret.txt", "w", stdout)
+#define MUTE freopen("../main/ret.txt", "w", stdout)
 #define UNMUTE freopen ("/dev/tty", "a", stdout)
 #define valp(x) printf(" --> %d\n", x)
 #define valft(y) printf(" --> %d\n\n", y)
@@ -30,7 +30,7 @@ int ret = 1;
 
 #define test(a, b) do {FILE *f2; char p1[80]; char p2[80]; size_t len; \
 	MUTE; if ((len = ft_printf(a"\n", b)) != printf(a"\n", b)) ret = 0; UNMUTE; \
-	f2 = fopen("../other/ret.txt", "r"); fgets(p1, 80, f2); fgets(p2, 80, f2);  \
+	f2 = fopen("../main/ret.txt", "r"); fgets(p1, 80, f2); fgets(p2, 80, f2);  \
 	if (strncmp(p1, p2, len)) ret = 0; fclose(f2); } while (0)
 
 #define check(a, b) test(a, b); if (!ret) eval(a, b); ret = 1; 
@@ -4556,16 +4556,16 @@ int main(void)
 
 	_BEGIN_TEST;
 _RUN(current);
-//_RUN(test_percent);
-//_RUN(test_di);
-//_RUN(test_o);
-//_RUN(test_O);
+_RUN(test_percent);
+_RUN(test_di);
+_RUN(test_o);
+_RUN(test_O);
 _RUN(test_c);
 _RUN(test_C);
-//_RUN(test_xX);
-//_RUN(test_uU);
-//_RUN(test_D);
-//_RUN(test_p);
+_RUN(test_xX);
+_RUN(test_uU);
+_RUN(test_D);
+_RUN(test_p);
 //_RUN(test_s);
 //_RUN(test_S);
 

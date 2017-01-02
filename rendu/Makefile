@@ -17,7 +17,6 @@ OBJ= *.o
 HEADER= includes
 FLAGS= -w -g  #-Wall -Wextra -Werror
 #FLAGS= -g -fsanitize=address -Wall -Wextra -Werror
- 
 
 all: $(NAME)
 
@@ -27,21 +26,11 @@ $(NAME):
 #	@ranlib $(NAME)
 	@echo "Compiling libftprintf.a... OK"
 
-exe:
-	@gcc -o $(EXE) $(FLAGS) -L. -lftprintf ../other/main.c -I $(HEADER)
-	@echo "Compiling ft_printf... OK"
-
-test: 
-	@gcc -o $(EXE) $(FLAGS) -L. -lftprintf ../other/main_ftprintf.c -I $(HEADER)
-	@echo "Compiling main_test... OK"
-
 clean:
 	@rm -f $(OBJ)
 
 fclean: clean
 	@rm -f $(NAME)
-	@rm -f $(EXE)
-	@rm -rf ft_printf.DSYM
 
 re: fclean all
 

@@ -29,7 +29,9 @@ clean:
 #	@rm -f $(OBJ)
 
 fclean: clean
+	@rm -rf $(NAME) ft_printf.dSYM
 	@make fclean -C $(RENDU)
+	@echo "Cleaning..."	
 
 re: fclean all
 
