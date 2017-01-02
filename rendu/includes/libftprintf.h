@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/03 17:42:08 by bduron            #+#    #+#             */
-/*   Updated: 2017/01/02 09:32:39 by bduron           ###   ########.fr       */
+/*   Updated: 2017/01/02 12:26:54 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void put_c(t_flags *f);
 void put_s(t_flags *f);
 void put_s_maj(t_flags *f);
 void conv_u(t_flags *f);
+char *get_wildcards(t_flags *f, char *s);
+void put_percent(t_flags *f);
+void    launch_conv_digits(t_flags *f);
+void    launch_conv_strings(t_flags *f);
+void    launch_conv_unsigned(t_flags *f);
 
 
 void			ft_putchar(char c);
