@@ -6,28 +6,28 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 10:27:01 by bduron            #+#    #+#             */
-/*   Updated: 2017/01/02 11:24:50 by bduron           ###   ########.fr       */
+/*   Updated: 2017/01/02 18:02:22 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int ft_putwchar(wchar_t c)
+int		ft_putwchar(wchar_t c)
 {
-	int utf;
-	int mask;
-	int shift;
-	int nboctet;
+	size_t	utf;
+	size_t	mask;
+	int		shift;
+	int		nboctet;
 
 	utf = 0;
 	shift = 8;
-	nboctet = 1;
+	nboctet = (c > 0xffff) ? 2 : 1;
 	utf = (c <= 0x1fffff) ? 0b11110000100000001000000010000000 : utf;
 	utf = (c <= 0xffff) ? 0b111000001000000010000000 : utf;
 	utf = (c <= 0x7ff) ? 0b1100000010000000 : utf;
 	utf = (c <= 0x7f) ? 0b00000000 : utf;
 	utf = (utf) ? (c & 0x3f) | utf : (c & 0x7f) | utf;
-	while (c >>= 6)
+	while (c > 0x7f && (c >>= 6))
 	{
 		mask = c & 0x3f;
 		mask <<= shift;
@@ -38,50 +38,59 @@ int ft_putwchar(wchar_t c)
 	shift = 0;
 	while (shift < nboctet)
 		ft_putchar((utf << (shift++ * 8)) >> ((nboctet - 1) * 8));
-	return (nboctet - 1);
+	return (nboctet);
 }
 
-void put_s(t_flags *f)
+void	put_s(t_flags *f)
 {
-	char *s;
-	size_t len;
-	int n;
+	char	*s;
+	size_t	len;
+	int		n;
 
 	if (!(s = va_arg(f->ap, char *)))
 		s = "(null)";
 	len = ft_strlen(s);
-//	if (f->precision >= 0)
-//			f->flags['0'] = 0;
 	if (f->precision >= 0 && (size_t)f->precision < len)
-			len = f->precision;
+		len = f->precision;
 	n = len;
 	if (!f->flags['-'])
-			(f->flags['0']) ? pad(f->width - len, '0') : pad(f->width - len, ' ');
+		(f->flags['0']) ? pad(f->width - len, '0') : pad(f->width - len, ' ');
 	while (n--)
 		ft_putchar(*s++);
 	if (f->flags['-'])
-			pad(f->width - len, ' ');
+		pad(f->width - len, ' ');
 	if (len != 0)
 		f->plen += max(f->width, 0, len);
 	else
 		f->plen += f->width;
 }
 
-size_t ft_strwlen(wchar_t *s)
+size_t	ft_strwlen(wchar_t *s)
 {
 	size_t len;
 
 	len = 0;
-	while (s[len] != L'\0')
-		len++;
+	while (*s != L'\0')
+	{
+		if (*s <= 0x7F)
+			len += 1;
+		else if (*s <= 0x7FF)
+			len += 2;
+		else if (*s <= 0xFFFF)
+			len += 3;
+		else if (*s <= 0x10FFFF)
+			len += 4;
+		s++;
+	}
 	return (len);
 }
 
-void put_s_maj(t_flags *f)
+void	put_s_maj(t_flags *f)
 {
-	wchar_t *s;
-	size_t len;
-	int n;
+	wchar_t	*s;
+	size_t	len;
+	size_t	n;
+	size_t 	j;
 
 	if (!(s = va_arg(f->ap, wchar_t *)))
 	{
@@ -90,36 +99,41 @@ void put_s_maj(t_flags *f)
 	}
 	len = ft_strwlen(s);
 	if (f->precision >= 0 && (size_t)f->precision < len)
-			len = f->precision;
+		len = f->precision;
 	n = len;
 	if (!f->flags['-'])
-			(f->flags['0']) ? pad(f->width - len, '0') : pad(f->width - len, ' ');
-	while (n--)
-		f->plen += ft_putwchar(*s++);
+		(f->flags['0']) ? pad(f->width - len, '0') : pad(f->width - len, ' ');
+	while (n > 0 && *s)
+	{
+		j = ft_putwchar(*s++);
+		f->plen += j;
+		n -= j;
+	}
 	if (f->flags['-'])
-			pad(f->width - len, ' ');
-	if (len != 0)
-		f->plen += max(f->width, f->precision, len);
-	else
-		f->plen += f->width;
+		pad(f->width - len, ' ');
+	//	if (len != 0)
+	//		f->plen += max(f->width, f->precision, len);
+	//	else
+	//		f->plen += f->width;
 }
 
-void put_c(t_flags *f)
+void	put_c(t_flags *f)
 {
 	wchar_t c;
-	int n;
+	int		n;
 
 	n = (f->width > 0) ? f->width : 1;
 	c = (f->id == 'c') ? get_arg_u(f) : f->id;
 	!f->flags['-'] && !f->flags['0'] ? pad(f->width - 1, ' ') : 0;
 	f->flags['0'] && !f->flags['-'] ? pad(f->width - 1, '0') : 0;
-	if	(f->mod['l'])
+	if (f->mod['l'])
 	{
-  		(c > 127) ? f->plen += ft_putwchar(c) : 0;
-  		(c <= 127) ? ft_putchar(c) : 0;
+		(c > 127) ? f->plen += ft_putwchar(c) : 0;
+		(c <= 127) ? ft_putchar(c) : 0;
 	}
 	else
-			ft_putchar(c);
+		ft_putchar(c);
 	f->flags['-'] ? pad(f->width - 1, ' ') : 0;
 	f->plen += n;
+	f->plen -= (c > 127 && f->mod['l']) ? 1 : 0;
 }

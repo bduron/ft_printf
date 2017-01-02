@@ -6,13 +6,13 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 10:18:13 by bduron            #+#    #+#             */
-/*   Updated: 2017/01/02 10:19:48 by bduron           ###   ########.fr       */
+/*   Updated: 2017/01/02 16:37:09 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-char *get_flags(char *s, t_flags *f)
+char	*get_flags(char *s, t_flags *f)
 {
 	s++;
 	while (is_flag(*s))
@@ -28,7 +28,7 @@ char *get_flags(char *s, t_flags *f)
 	return (s);
 }
 
-int is_flag(char c)
+int		is_flag(char c)
 {
 	if (c == '0')
 		return (1);
@@ -45,14 +45,14 @@ int is_flag(char c)
 	return (0);
 }
 
-int is_mod(char c)
+int		is_mod(char c)
 {
 	if (c == 'h' || c == 'l' || c == 'j' || c == 'z')
 		return (1);
 	return (0);
 }
 
-int is_id(char id)
+int		is_id(char id)
 {
 	if (id == 's' || id == 'S')
 		return (1);
@@ -73,12 +73,12 @@ int is_id(char id)
 	return (0);
 }
 
-void reset_flags(t_flags *f)
+void	reset_flags(t_flags *f)
 {
 	ft_memset(f->flags, 0, sizeof(int) * 256);
 	ft_memset(f->mod, 0, sizeof(int) * 256);
 	ft_memset(f->str, 0, 256);
-	f->width = 0; /* pas indispensable */
+	f->width = 0;
 	f->precision = -1;
 	f->sign = 0;
 	f->s_bool = 0;

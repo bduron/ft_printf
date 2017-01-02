@@ -6,13 +6,13 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 10:25:46 by bduron            #+#    #+#             */
-/*   Updated: 2017/01/02 10:25:52 by bduron           ###   ########.fr       */
+/*   Updated: 2017/01/02 13:16:02 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-char *itobin(unsigned long long n, char *p)
+char	*itobin(unsigned long long n, char *p)
 {
 	*--p = (n & 0x1) ? '1' : '0';
 	while (n >>= 1)
@@ -20,7 +20,7 @@ char *itobin(unsigned long long n, char *p)
 	return (p);
 }
 
-char *itob(t_flags *f, unsigned long long n)
+char	*itob(t_flags *f, unsigned long long n)
 {
 	char *p;
 
@@ -49,10 +49,10 @@ char *itob(t_flags *f, unsigned long long n)
 	return (p);
 }
 
-void conv_u(t_flags *f)
+void	conv_u(t_flags *f)
 {
-	char *s;
-	unsigned long nb;
+	char			*s;
+	unsigned long	nb;
 
 	nb = get_arg_u(f);
 	if (f->flags['.'])
@@ -62,11 +62,11 @@ void conv_u(t_flags *f)
 	put_d(f, s, ft_strlen(s));
 }
 
-void conv_d(t_flags *f)
+void	conv_d(t_flags *f)
 {
-	char *s;
-	long long nb;
-	unsigned long m;
+	char			*s;
+	long long		nb;
+	unsigned long	m;
 
 	nb = ((f->id == 'd' || f->id == 'i') && !f->flags['u']) ?
 		get_arg(f) : get_arg_u(f);
@@ -82,13 +82,14 @@ void conv_d(t_flags *f)
 	m = (nb > 0) ? nb : -nb;
 	s = (is_x(f) || f->id == 'o') ? itob(f, nb) : itob(f, m);
 	s = (nb == 0 && f->precision == 0 && f->id != 'o') ? "" : s;
-	s = (nb == 0 && f->precision == 0 && f->id == 'o' && !f->flags['#']) ? "" : s;
+	s = (nb == 0 && f->precision == 0 && f->id == 'o' && !f->flags['#'])
+		? "" : s;
 	f->h_bool = (f->flags['#'] && *s != '0' && *s && is_x(f)) ? 2 : 0;
 	f->h_bool += (!f->h_bool && f->flags['p']) ? 2 : 0;
-	put_d(f, s, ft_strlen(s) + f->s_bool + f->h_bool); // + s_bool to check (size)
+	put_d(f, s, ft_strlen(s) + f->s_bool + f->h_bool);
 }
 
-void put_d(t_flags *f, char *s, int len)
+void	put_d(t_flags *f, char *s, int len)
 {
 	int n;
 

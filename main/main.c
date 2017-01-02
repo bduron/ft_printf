@@ -42,6 +42,41 @@ int ret = 1;
 int current(void)
 {
 
+	setlocale(LC_ALL, "");	
+	ft_printf("%S\n", L"Hello world");
+
+	printf("len = %d \n", ft_strwlen(L"❤ ❤ ❤"));
+	printf("len = %d \n", ft_strwlen(L"🧀"));
+	printf("len = %d \n", ft_strwlen(L"a"));
+
+	//ft_putwchar(L'🧀');	
+
+	//ft_putwchar(L'🧀');	
+	//printf(" fC  %d\n\n", ft_printf("%C",L'❤'));
+	//printf(" fC  %d\n\n", ft_printf("%C",L'🧀'));
+	//printf(" fC  %d\n\n", ft_printf("%C",L'a'));
+	//printf(" fC  %d\n\n", ft_printf("%C",L'☂'));
+	//printf(" fC  %d\n\n\n", ft_printf("%C",L'Ć'));
+
+	//printf(" f  %d\n\n", ft_printf("%S",L"❤"));
+	//printf(" f  %d\n\n", ft_printf("%S",L"🧀"));
+	//printf(" f  %d\n\n", ft_printf("%S",L"a"));
+	//printf(" f  %d\n\n", ft_printf("%S",L"☂"));
+	//printf(" f  %d\n\n\n", ft_printf("%S",L"Ć"));
+
+	//printf("   %d\n\n", ft_putwchar(L'❤'));
+	//printf("   %d\n\n", ft_putwchar(L'🧀'));
+	//printf("   %d\n\n", ft_putwchar(L'a'));
+	//printf("   %d\n\n", ft_putwchar(L'☂'));
+	//printf("   %d\n\n\n", ft_putwchar(L'Ć'));
+
+	//printf(" p  %d\n\n", printf("%S",L"❤"));
+	//printf(" p  %d\n\n", printf("%S",L"🧀"));
+	//printf(" p  %d\n\n", printf("%S",L"a"));
+	//printf(" p  %d\n\n", printf("%S",L"☂"));
+	//printf(" p  %d\n\n", printf("%S",L"Ć"));
+	//printf(" p  %d\n\n", printf("%C", 0));
+
 	ft_printf(RED "Bonjour !" RESET GRN "Comment allez-vous ?\n" RESET);
 	ft_printf("%ls", L"ÊM-^ZM-^VÁM-^BM-^I");
 	ft_printf("{%S}", ((void *)0));
@@ -4556,18 +4591,18 @@ int main(void)
 
 	_BEGIN_TEST;
 _RUN(current);
-_RUN(test_percent);
-_RUN(test_di);
-_RUN(test_o);
-_RUN(test_O);
+//_RUN(test_percent);
+//_RUN(test_di);
+//_RUN(test_o);
+//_RUN(test_O);
 _RUN(test_c);
 _RUN(test_C);
-_RUN(test_xX);
-_RUN(test_uU);
-_RUN(test_D);
-_RUN(test_p);
+//_RUN(test_xX);
+//_RUN(test_uU);
+//_RUN(test_D);
+//_RUN(test_p);
 //_RUN(test_s);
-//_RUN(test_S);
+_RUN(test_S);
 
 	return (0);
 }

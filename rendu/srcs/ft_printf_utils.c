@@ -6,13 +6,13 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 10:20:13 by bduron            #+#    #+#             */
-/*   Updated: 2017/01/02 10:21:10 by bduron           ###   ########.fr       */
+/*   Updated: 2017/01/02 13:20:24 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int count_digits(int nb)
+int		count_digits(int nb)
 {
 	int len;
 
@@ -30,7 +30,7 @@ int count_digits(int nb)
 	return (len);
 }
 
-int max(int x, int y, int z)
+int		max(int x, int y, int z)
 {
 	int max;
 
@@ -39,12 +39,12 @@ int max(int x, int y, int z)
 	return (max);
 }
 
-int is_x(t_flags *f)
+int		is_x(t_flags *f)
 {
 	return (f->id == 'x' || f->id == 'X' ? 1 : 0);
 }
 
-int pad(int len, char c)
+int		pad(int len, char c)
 {
 	if (len < 0)
 		return (0);
@@ -56,11 +56,12 @@ int pad(int len, char c)
 	return (0);
 }
 
-int isnt_id(t_flags *f)
+int		isnt_id(t_flags *f)
 {
-	char ids[] = "DdiOoUuxXcCsSbp";
-	int i;
+	char	*ids;
+	int		i;
 
+	ids = "DdiOoUuxXcCsSbp";
 	i = 0;
 	while (ids[i])
 		if (f->id == ids[i++])

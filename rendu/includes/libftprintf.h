@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   libftprintf.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/03 17:42:08 by bduron            #+#    #+#             */
-/*   Updated: 2017/01/02 12:26:54 by bduron           ###   ########.fr       */
+/*   Created: 2017/01/02 13:25:44 by bduron            #+#    #+#             */
+/*   Updated: 2017/01/02 13:25:46 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,49 +36,46 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-typedef struct s_flags
+typedef struct	s_flags
 {
-	int flags[256];
-	int mod[256];
-	char str[256];
-	int width;
-	int precision;
-	va_list ap;
-	size_t plen;
-	char id;
-
-	char sign;
-	int s_bool;
-	int h_bool;
+	int		flags[256];
+	int		mod[256];
+	char	str[256];
+	int		width;
+	int		precision;
+	va_list	ap;
+	size_t	plen;
+	char	id;
+	char	sign;
+	int		s_bool;
+	int		h_bool;
 }				t_flags;
 
-int ft_printf(const char *format, ...);
-void fmt(t_flags *f, const char *format);
-char * get_flags(char *flag, t_flags *f);
-int is_flag(char c);
-int is_id(char id);
-void reset_flags(t_flags *f);
-int is_mod(char c);
-void launch_conv(t_flags *f);
-void conv_d(t_flags *f);
-void put_d(t_flags *f, char *s, int len);
-int count_digits(int nb);
-int max(int x, int y, int z);
-long long  get_arg_u(t_flags *f);
-long long  get_arg(t_flags *f);
-void conv_d(t_flags *f);
-int is_x(t_flags *f);
-void put_c(t_flags *f);
-void put_s(t_flags *f);
-void put_s_maj(t_flags *f);
-void conv_u(t_flags *f);
-char *get_wildcards(t_flags *f, char *s);
-void put_percent(t_flags *f);
-void    launch_conv_digits(t_flags *f);
-void    launch_conv_strings(t_flags *f);
-void    launch_conv_unsigned(t_flags *f);
-
-
+int				ft_printf(const char *format, ...);
+void			fmt(t_flags *f, const char *format);
+char			*get_flags(char *flag, t_flags *f);
+int				is_flag(char c);
+int				is_id(char id);
+void			reset_flags(t_flags *f);
+int				is_mod(char c);
+void			launch_conv(t_flags *f);
+void			conv_d(t_flags *f);
+void			put_d(t_flags *f, char *s, int len);
+int				count_digits(int nb);
+int				max(int x, int y, int z);
+long long		get_arg_u(t_flags *f);
+long long		get_arg(t_flags *f);
+void			conv_d(t_flags *f);
+int				is_x(t_flags *f);
+void			put_c(t_flags *f);
+void			put_s(t_flags *f);
+void			put_s_maj(t_flags *f);
+void			conv_u(t_flags *f);
+char			*get_wildcards(t_flags *f, char *s);
+void			put_percent(t_flags *f);
+void			launch_conv_digits(t_flags *f);
+void			launch_conv_strings(t_flags *f);
+void			launch_conv_unsigned(t_flags *f);
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
 int				ft_isalpha(int c);

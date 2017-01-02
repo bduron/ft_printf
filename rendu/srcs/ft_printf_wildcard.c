@@ -6,13 +6,13 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 10:17:05 by bduron            #+#    #+#             */
-/*   Updated: 2017/01/02 10:17:28 by bduron           ###   ########.fr       */
+/*   Updated: 2017/01/02 13:20:52 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-char *get_wildcards(t_flags *f, char *s)
+char	*get_wildcards(t_flags *f, char *s)
 {
 	if (ft_isdigit(*s))
 		f->width = ft_atoi((const char*)s);
@@ -31,7 +31,8 @@ char *get_wildcards(t_flags *f, char *s)
 		s++;
 	if (*s == '.')
 	{
-		f->precision = (*++s == '*') ? va_arg(f->ap, int) : ft_atoi((const char*)s);
+		f->precision = (*++s == '*')
+			? va_arg(f->ap, int) : ft_atoi((const char*)s);
 		f->flags['.']++;
 		f->flags['.'] = f->precision < 0 && *s == '*' ? 0 : 1;
 	}
