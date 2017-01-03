@@ -43,11 +43,26 @@ int current(void)
 {
 
 	setlocale(LC_ALL, "");	
-	ft_printf("%S\n", L"Hello world");
 
-	printf("len = %d \n", ft_strwlen(L"❤ ❤ ❤"));
-	printf("len = %d \n", ft_strwlen(L"🧀"));
-	printf("len = %d \n", ft_strwlen(L"a"));
+	check("%15.4S", L"我是一只猫。");
+
+//	printf("%15.4S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+
+//	valp(printf("%15.4S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B"));
+//	valft(ft_printf("%15.4S\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B"));
+//
+//
+//	ft_printf("%.7S\n", L"АαВ㬒㬒㬒");
+//	printf("%.7S\n", L"АαВ㬒㬒㬒");
+//
+//	valp(printf("{%030S}\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B"));
+//	valft(ft_printf("{%030S}\n", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B"));
+//	check("%.3S", L"❤❤❤");
+//	ft_printf("%.3S\n", L"❤❤❤");
+//	printf("%.3S\n", L"❤❤❤");
+//	printf("len = %d \n", ft_strwlen(L"❤ ❤ ❤"));
+//	printf("len = %d \n", ft_strwlen(L"🧀"));
+//	printf("len = %d \n", ft_strwlen(L"a"));
 
 	//ft_putwchar(L'🧀');	
 
@@ -77,9 +92,9 @@ int current(void)
 	//printf(" p  %d\n\n", printf("%S",L"Ć"));
 	//printf(" p  %d\n\n", printf("%C", 0));
 
-	ft_printf(RED "Bonjour !" RESET GRN "Comment allez-vous ?\n" RESET);
-	ft_printf("%ls", L"ÊM-^ZM-^VÁM-^BM-^I");
-	ft_printf("{%S}", ((void *)0));
+//	ft_printf(RED "Bonjour !" RESET GRN "Comment allez-vous ?\n" RESET);
+//	ft_printf("%ls", L"ÊM-^ZM-^VÁM-^BM-^I");
+//	ft_printf("{%S}", ((void *)0));
 	
 //	printf("p  %d \n", printf("{%05.S}", 0));
 //	printf("ft %d \n", ft_printf("{%05.S}", 0));
@@ -154,8 +169,6 @@ int current(void)
 
 int test_percent(void)
 {
-	printf("{%}\n");
-	ft_printf("{%}\n");
 	check("m%m", 4);
 	check("aa%%bb", 4);
 	check("%%%%%%%%%%%%", 4);
@@ -497,13 +510,20 @@ int test_S(void)
 	check("%jS", NULL);
 	check("%jS", buf);
 	check("%jS", buf);
-	printf("\n------------- File checker tests ------------\n");
+//	printf("\n------------- File checker tests ------------\n");
 	check("{%S}", NULL);
 	check("%ls", L"ÊM-^ZM-^VÁM-^BM-^I");
 	check("{%30S}", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
 	check("{%030S}", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
 	check("{% S}", NULL);
 	check("%.4S", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+	check("%.3S", L"❤❤❤");
+	check("{%030S}", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+	check("{%30S}", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+	check("%.4S", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+	check("{%05.S}", L"42 c est cool");
+	check("%15.4S", L"ÊM-M-^QÊM-^XØ‰∏M-ÂM-^O™ÁM-^L´„M-M-^B");
+
 
 	return (0);
 }
@@ -4591,17 +4611,17 @@ int main(void)
 
 	_BEGIN_TEST;
 _RUN(current);
-//_RUN(test_percent);
-//_RUN(test_di);
-//_RUN(test_o);
-//_RUN(test_O);
+_RUN(test_percent);
+_RUN(test_di);
+_RUN(test_o);
+_RUN(test_O);
 _RUN(test_c);
 _RUN(test_C);
-//_RUN(test_xX);
-//_RUN(test_uU);
-//_RUN(test_D);
-//_RUN(test_p);
-//_RUN(test_s);
+_RUN(test_xX);
+_RUN(test_uU);
+_RUN(test_D);
+_RUN(test_p);
+_RUN(test_s);
 _RUN(test_S);
 
 	return (0);

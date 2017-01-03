@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 10:27:01 by bduron            #+#    #+#             */
-/*   Updated: 2017/01/02 18:02:22 by bduron           ###   ########.fr       */
+/*   Updated: 2017/01/03 15:35:25 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,32 +89,26 @@ void	put_s_maj(t_flags *f)
 {
 	wchar_t	*s;
 	size_t	len;
-	size_t	n;
-	size_t 	j;
+	long	n;
+	long	nb_octet;
 
 	if (!(s = va_arg(f->ap, wchar_t *)))
-	{
 		s = L"(null)";
-		f->plen -= 4;
-	}
 	len = ft_strwlen(s);
 	if (f->precision >= 0 && (size_t)f->precision < len)
 		len = f->precision;
-	n = len;
+	n = (long)len;
 	if (!f->flags['-'])
-		(f->flags['0']) ? pad(f->width - len, '0') : pad(f->width - len, ' ');
-	while (n > 0 && *s)
+		(f->flags['0']) ? pad(f->width - len, '0')
+			: pad(f->width - len + rem(len, s), ' ');
+	while (n > 0 && *s && ft_wlen(*s) <= n)
 	{
-		j = ft_putwchar(*s++);
-		f->plen += j;
-		n -= j;
+		nb_octet = ft_putwchar(*s++);
+		n -= nb_octet;
 	}
 	if (f->flags['-'])
 		pad(f->width - len, ' ');
-	//	if (len != 0)
-	//		f->plen += max(f->width, f->precision, len);
-	//	else
-	//		f->plen += f->width;
+	f->plen += (len != 0) ? max(f->width, 0, len - (size_t)n) : f->width;
 }
 
 void	put_c(t_flags *f)

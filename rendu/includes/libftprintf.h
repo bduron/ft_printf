@@ -6,7 +6,7 @@
 /*   By: bduron <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/02 13:25:44 by bduron            #+#    #+#             */
-/*   Updated: 2017/01/02 13:25:46 by bduron           ###   ########.fr       */
+/*   Updated: 2017/01/03 15:26:28 by bduron           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void			put_percent(t_flags *f);
 void			launch_conv_digits(t_flags *f);
 void			launch_conv_strings(t_flags *f);
 void			launch_conv_unsigned(t_flags *f);
+size_t			rem(size_t len, wchar_t *s);
+size_t			ft_wlen(wchar_t s);
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
 int				ft_isalpha(int c);
